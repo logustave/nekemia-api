@@ -1,0 +1,117 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Documentation des APIs de Nekiema APIs",
+        "description": "Implementation avec Swagger par Asher Services",
+        "contact": {
+            "email": "mianahissan@protonmail.com"
+        },
+        "license": {
+            "name": "Nekiema Protected",
+            "url": "https://www.nekiema.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://nekemia-api.test/api",
+            "description": "Nekiema Service Server"
+        }
+    ],
+    "paths": {
+        "/authenticate": {
+            "post": {
+                "tags": [
+                    "OAuth"
+                ],
+                "summary": "Authentification",
+                "description": "OAuthLogin",
+                "operationId": "loginApi",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "example": "email"
+                                    },
+                                    "password": {
+                                        "example": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Connexion Réussie"
+                    }
+                }
+            }
+        },
+        "/register": {
+            "post": {
+                "tags": [
+                    "OAuth"
+                ],
+                "summary": "Inscription de l'utilisateur",
+                "description": "Informations de l'utilisateurs",
+                "operationId": "Inscription",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {},
+                                    "email": {},
+                                    "password": {}
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Opération Réussie"
+                    },
+                    "200": {
+                        "description": "Inscription réussie"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "name": "bearerAuth",
+                "in": "header",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            },
+            "passport": {
+                "type": "basic",
+                "description": "Nekiema APIs Authentification.",
+                "in": "header",
+                "scheme": "http",
+                "flows": {
+                    "password": {
+                        "authorizationUrl": "http://localhost/oauth/authorize",
+                        "tokenUrl": "http://localhost/oauth/token",
+                        "refreshUrl": "http://localhost/token/refresh",
+                        "scopes": []
+                    }
+                }
+            }
+        }
+    }
+}
