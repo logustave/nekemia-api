@@ -74,4 +74,6 @@ class Controller extends BaseController
         return Crypt::decrypt($object);
     }
 
+    public int $format = JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE;
+
 }
