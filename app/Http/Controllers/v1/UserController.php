@@ -48,9 +48,7 @@ class UserController extends Controller
         $accessToken = Auth::user()->createToken('authToken')->accessToken;
         Session::flush();
         Auth::logout();
-        return response()->json([
-            "token"=>$accessToken
-        ],200,['Content-Type' => 'application/json;charset=UTF-8', 'Charset' => 'utf-8'], JSON_UNESCAPED_UNICODE);
+        return response()->json(["token"=>$accessToken],200,['Content-Type' => 'application/json;charset=UTF-8', 'Charset' => 'utf-8'], JSON_UNESCAPED_UNICODE);
     }
 
 

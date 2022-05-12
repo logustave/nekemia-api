@@ -6,6 +6,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\Crypt;
 
 /**
  * @OA\Info(
@@ -64,5 +65,13 @@ class Controller extends BaseController
      *      description="Nekiema Service Server"
      * )
      */
+
+    public function cryptRequest($object): string {
+        return Crypt::encrypt($object);
+    }
+
+    public function decryptRequest($object){
+        return Crypt::decrypt($object);
+    }
 
 }
