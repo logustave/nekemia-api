@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('permissions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('label', '15');
+            $table->string('label', '15')->unique();
             $table->string('description', '30')->nullable();
             $table->string('table', '30')->nullable();
             $table->timestamps();

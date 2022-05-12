@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('permission_roles', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->foreignId('role_id')->references('id')->on('role')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreignId('permission_id')->references('id')->on('permission_id')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('role_id')->references('id')->on('roles')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('permission_id')->references('id')->on('permissions')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }

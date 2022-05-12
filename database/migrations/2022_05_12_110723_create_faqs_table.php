@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('roles', function (Blueprint $table) {
+        Schema::create('faqs', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('label', '15')->unique();
-            $table->string('description', '30')->nullable();
+            $table->string('question')->unique();
+            $table->longText('answer');
+            $table->integer('order')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('faqs');
     }
 };
