@@ -12,6 +12,7 @@ use JetBrains\PhpStorm\ArrayShape;
 
 /**
  * @method static find($id)
+ * @method static paginate(int $int)
  * @property mixed $question
  * @property bool|mixed $answer
  */
@@ -37,7 +38,7 @@ class Faq extends Model
                 $question = DB::table('categories')
                     ->where('question', $request->input('question'))
                     ->first();
-                if ($question) return $this->responseModel(false, [], `Question $question already exist`); else{
+                if ($question) return $this->responseModel(false, [], "Question { $question } already exist"); else{
                     $faq = new Faq();
                     $faq->question = $request->input();
                     $faq->answer = $request->input('answer') && $request->input('answer');
@@ -59,7 +60,7 @@ class Faq extends Model
                 'answer'=> 'required'
             ])){
                 $faq = Faq::find($request->input('id'));
-                if (!$faq) return $this->responseModel(false, [], `Question does not exist`); else{
+                if (!$faq) return $this->responseModel(false, [], "Question does not exist"); else{
                     $faq->question = $request->input();
                     $faq->answer = $request->input('answer') && $request->input('answer');
                     $faq->save();
@@ -75,7 +76,7 @@ class Faq extends Model
     #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function getAllFaq(): array
     {
         try {
-            return $this->responseModel(true, Faq::all());
+            return $this->responseModel(true, Faq::paginate(10));
         }catch (Exception $e){
             return $this->responseModel(false, [], $e);
         }
@@ -84,7 +85,11 @@ class Faq extends Model
     #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function getFaqById($id): array
     {
         try {
-            return $this->responseModel(true, Faq::find($id));
+            $faq = Faq::find($id);
+            if ($faq){
+                return $this->responseModel(true,$faq);
+            }
+            return $this->responseModel(false, [], "Faq with id { $id } does not exist.");
         }catch (Exception $e){
             return $this->responseModel(false, [], $e);
         }

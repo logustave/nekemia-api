@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\v1\FaqController;
 use App\Http\Controllers\v1\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,3 +17,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/authenticate', [UserController::class,'authenticate'])->name('authenticate.api');
 Route::post('/register', [UserController::class,'register'])->name('login.api');
+Route::prefix('v1')->group(function(){
+    Route::prefix('faq')->group(function(){
+        Route::get('/',[FaqController::class, 'getAllFaqAPI']);
+        Route::get('/{id}',[FaqController::class, 'getFaqByIdAPI']);
+    });
+});
