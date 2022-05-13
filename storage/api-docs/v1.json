@@ -19,7 +19,7 @@
         }
     ],
     "paths": {
-        "/v1/faq": {
+        "/v1/faq?page={id}": {
             "get": {
                 "tags": [
                     "FAQ"
@@ -27,6 +27,16 @@
                 "summary": "GET FAQ",
                 "description": "GET FAQ",
                 "operationId": "getAllFaqAPI",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Opération éffectuée",
