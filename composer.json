@@ -6,7 +6,9 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "aws/aws-sdk-php": "^3.222",
         "darkaonline/l5-swagger": "^8.3",
+        "djunehor/laravel-sms": "^2.2",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.2",
         "laravel/passport": "^10.4",
