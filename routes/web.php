@@ -25,7 +25,7 @@ Route::get('/verified-email/{id}/{token}', [AdminController::class, 'verifiedAdm
 
 Route::get('sendSms', function (){
     $client = new Client();
-    $res = $client->request('post', "https://api.ringcaptcha.com/y7u4yji7efy2ohe8y2y4/code/sms", [
+    $res = $client->request('post', "https://api.ringcaptcha.com/y7u4yji7efy2ohe8y2y4/sms", [
         'headers' => [
             'Accept' => 'application/json',
         ],
@@ -47,6 +47,9 @@ Route::prefix('/category')->group(function (){
     });
     Route::get('/information/{id}', function () {
         return view('pages.category.information');
+    });
+    Route::get('/modifier/{id}', function () {
+        return view('pages.categorie.modifier');
     });
 });
 
