@@ -168,6 +168,8 @@ return [
          * Package Service Providers...
          */
 
+        Djunehor\Sms\SmsServiceProvider::class,
+
         /*
          * Application Service Providers...
          */

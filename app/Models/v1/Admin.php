@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use JetBrains\PhpStorm\ArrayShape;
+use Djunehor\Sms\Concrete\RingCaptcha;
 
 /**
  * @property mixed $full_name
@@ -43,20 +44,30 @@ class Admin extends Model
             $full_name = $request->input('full_name');
             $email = $request->input('email');
             $contact = $request->input('contact');
-            $pseudo = $request->input('contact') ? $request->input('contact') : null;
+            $pseudo = $request->input('pseudo') ? $request->input('pseudo') : null;
+            $password = $request->input(Str::random(15));
+
             $admin = DB::table('admins')
                 ->where('email', $email)
                 ->orWhere('contact', $contact)
                 ->first();
             if ($admin) return $this->responseModel(false, [], "admin already exist"); else{
-                $password = $request->input(Str::random(15));
+                $sms = new RingCaptcha();
+                $emailToken = 'token';
+                $url = route('verified-email', [
+                    'id' => 1,
+                    'token' => $emailToken
+                ]);
+                $sms->text("Code de vérification: 0569")->to($contact)->from('NEKEMIA BTP')->send();
                 $admin = new Admin();
                 $admin->full_name = $full_name;
                 $admin->email = $email;
-                $admin->contact = $contact;
                 $admin->pseudo = $pseudo;
-                $admin->password = $password;
+                $admin->contact = $contact;
+
+                $admin->password = '$password';
                 $admin->save();
+                $sms->text("Code de vérification")->to($contact)->from('NEKEMIA BTP')->send();
                 Mail::to($email)->send(new Password($email, $full_name, $url));
                 return $this->responseModel(true, $admin);
             }
@@ -69,4 +80,16 @@ class Admin extends Model
         }
     }
 
+
+    public function verifiedEmail($id,$token): bool
+    {
+        $verified = DB::table('')
+            ->where('id', $id)
+            ->where('email_token', $token)
+            ->first();
+        if ($verified){
+            return true;
+        }
+        return false;
+    }
 }

@@ -139,4 +139,12 @@ class AdminController extends Controller
             $this->format
         );
     }
+
+    public function verifiedAdminEmail($id,$token): string {
+        $email = (new Admin)->verifiedEmail($id, $token);
+        if ($email){
+            return 'Verified';
+        }
+        return 'Not Verified';
+    }
 }

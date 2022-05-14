@@ -17,9 +17,13 @@ class Password extends Mailable
      * @return void
      */
     public string $email;
-    public function __construct($email)
+    public string $full_name;
+    public string $url;
+    public function __construct($email, $full_name, $url)
     {
         $this->email = $email;
+        $this->full_name = $full_name;
+        $this->url = $url;
     }
 
     /**
