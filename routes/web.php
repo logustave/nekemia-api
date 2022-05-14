@@ -30,6 +30,9 @@ Route::prefix('/categorie')->group(function (){
     Route::get('/information/{id}', function () {
         return view('pages.categorie.information');
     });
+    Route::get('/modifier/{id}', function () {
+        return view('pages.categorie.modifier');
+    });
 });
 
 //end routes for categorie

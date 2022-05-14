@@ -19,7 +19,7 @@
   @include('partials.includes.headerFiles')
 </head>
 
-<body class="g-sidenav-show  bg-gray-100">
+<body class="g-sidenav-show  ">
     {{-- SideBar--}}
         @include('partials.sideBar')
     {{--End side Bar--}}
