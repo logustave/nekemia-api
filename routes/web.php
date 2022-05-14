@@ -41,12 +41,12 @@ Route::get('sendSms', function (){
 
 //routes for category
 
-Route::prefix('/category')->group(function (){
+Route::prefix('/categorie')->group(function (){
     Route::get('/',function (){
-        return view('pages.category.index');
+        return view('pages.categorie.index');
     });
     Route::get('/information/{id}', function () {
-        return view('pages.category.information');
+        return view('pages.categorie.information');
     });
     Route::get('/modifier/{id}', function () {
         return view('pages.categorie.modifier');
@@ -63,6 +63,6 @@ Route::prefix('/faq')->group(function (){
         return view('pages.faq.index');
     });
     Route::get('/information/{id}', function () {
-        return view('pages.category.information');
+        return view('pages.categorie.information');
     });
 });
