@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
 Route::get('/verified-email/{id}/{token}', [AdminController::class, 'verifiedAdminEmail'])->name('verified-email');
@@ -28,4 +28,29 @@ Route::get('sendSms', function (){
         'api_key'=>'9f2b039d02e06643ebd69c2d683af11b72bf572f'
     ]);
     dd($response);
+});
+
+//routes for category
+
+Route::prefix('/category')->group(function (){
+    Route::get('/',function (){
+        return view('pages.category.index');
+    });
+    Route::get('/information/{id}', function () {
+        return view('pages.category.information');
+    });
+});
+
+//end routes for category
+
+
+//routes for faq
+
+Route::prefix('/faq')->group(function (){
+    Route::get('/',function (){
+        return view('pages.faq.index');
+    });
+    Route::get('/information/{id}', function () {
+        return view('pages.category.information');
+    });
 });
