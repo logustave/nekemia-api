@@ -2,6 +2,7 @@
 
 namespace App\Models\v1;
 
+use App\Mail\changeEmail;
 use App\Mail\Password;
 use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -57,9 +58,7 @@ class Admin extends Model
                 ->orWhere('contact', $contact)
                 ->first();
             if ($admin) return $this->responseModel(false, [], "admin already exist"); else{
-                $sms = new RingCaptcha();
-                $emailToken = Str::random(32);;
-                $sms->text("Code de vérification: 0569")->to($contact)->from('NEKEMIA BTP')->send();
+                $emailToken = Str::random(32);
                 $admin = new Admin();
                 $admin->full_name = $full_name;
                 $admin->email = $email;
@@ -130,6 +129,58 @@ class Admin extends Model
                 return $this->responseModel(true, Admin::find($request->input('id')));
             }
             return $this->responseModel(false, [], '');
+        }catch (Exception $e){
+            return $this->responseModel(false, [], $e);
+        }
+    }
+
+    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function updateAdminDetails(Request $request): array{
+        try {
+            $validator = Validator::make($request->all(), [
+                'id' => 'required',
+                'full_name' => 'required',
+                'contact' => 'required',
+            ]);
+            if (!$validator->fails()){
+                $admin = Admin::find($request->input('id'));
+                if ($admin){
+                    $admin->full_name = $request->input('full_name');
+                    $admin->contact = $request->input( 'contact');
+                    $admin->save();
+                    return $this->responseModel(true, Admin::find($request->input('id')));
+                }
+                return $this->responseModel(false, [], "admin does not exist");
+            }
+            return $this->responseModel(false, [], 'incorrect field');
+        }catch (Exception $e){
+            return $this->responseModel(false, [], $e);
+        }
+    }
+
+    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function updateEmail(Request $request): array
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'id' => 'required',
+                'old_email' => 'required',
+                'new_email' => 'required|different:old_email'
+            ]);
+            if (!$validator->fails()){
+                $admin = Admin::find($request->input('id'));
+                $emailToken = Str::random(32);
+                $dto = [
+                    'admin_id' => $admin->id,
+                    'email_token' => $emailToken
+                ];
+                DB::table('checks')->insert($dto);
+                $admin->email_verified_at = null;
+                $admin->email = $request->input('new_email');
+                $admin->save();
+                $url = route('verified-email', $dto);
+                Mail::to($admin->email)->send(new changeEmail($admin, $url));
+                return $this->responseModel(true, $admin);
+            }
+            return $this->responseModel(false, [], 'incorrect field');
         }catch (Exception $e){
             return $this->responseModel(false, [], $e);
         }
