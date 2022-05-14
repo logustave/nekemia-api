@@ -47,6 +47,29 @@ Route::prefix('/faq')->group(function (){
         return view('pages.faq.index');
     });
     Route::get('/information/{id}', function () {
-        return view('pages.categorie.information');
+        return view('pages.faq.information');
     });
+    Route::get('/modifier/{id}', function () {
+        return view('pages.categorie.modifier');
+    });
+});
+
+
+//routes for comptes admin
+
+Route::prefix('/comptes')->group(function (){
+    Route::get('/',function (){
+        return view('pages.comptes.index');
+    });
+});
+
+
+Route::prefix('/profile')->group(function (){
+    Route::get('/',function (){
+        return view('pages.profile.index');
+    });
+    Route::get('/modifier/{id}', function () {
+        return view('pages.profile.modifier');
+    });
+
 });

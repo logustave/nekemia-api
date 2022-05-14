@@ -6,7 +6,7 @@
                 <div class="card-header pb-0 p-3">
                     <div class="row">
                         <div class="col-6 d-flex align-items-center">
-                            <h6 class="mb-0">Categories</h6>
+                            <h3 class="mb-0">Listes des Categories</h3>
                         </div>
 
                     </div>
@@ -15,9 +15,8 @@
                     <ul class="list-group listElement">
                         <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg element">
                             <div class="d-flex flex-column">
-                                <h6 class="mb-1 text-dark font-weight-bold text-sm">le label</h6>
-                                <span class="text-xs">description</span>
-                            </div>
+                                <h6 class="mb-1 text-dark font-weight-bold">le label</h6>
+                                <span class="text-xs">description mettre un sub str apres 200 carracteres </span>                            </div>
                             <div class="d-flex align-items-center text-sm ">
                                 <small class="mx-1">01/01/2022</small>
                                 <a class="px-3 mb-0 btn btn-outline-primary" href="categorie/information/1"
@@ -39,10 +38,14 @@
                 <div class="card-body">
                     <form role="form text-left">
                         <div class="mb-3">
+                            <label>nom:</label>
+
                             <input type="text" name="label" class="form-control" placeholder="label" aria-label="Name"
                                    aria-describedby="email-addon">
                         </div>
                         <div class="mb-3">
+                            <label>Description:</label>
+
                             <textarea name="description" class="form-control" placeholder="Description"
                                       style="resize: none" rows="5"></textarea>
                         </div>
