@@ -23,22 +23,6 @@ Route::get('/', function () {
 
 Route::get('/verified-email/{id}/{token}', [AdminController::class, 'verifiedAdminEmail'])->name('verified-email');
 
-Route::get('sendSms', function (){
-    $client = new Client();
-    $res = $client->request('post', "https://api.ringcaptcha.com/y7u4yji7efy2ohe8y2y4/sms", [
-        'headers' => [
-            'Accept' => 'application/json',
-        ],
-        'form_params' => [
-            "app_key"=> 'y7u4yji7efy2ohe8y2y4',
-            "api_key"=>'9f2b039d02e06643ebd69c2d683af11b72bf572f',
-            "phone"=>"+22584443227",
-            'message' => "Code de vérification Nekemia BTP: {{ code }}.",
-        ]
-    ]);
-    dd($res->getBody()->getContents());
-});
-
 //routes for category
 
 Route::prefix('/categorie')->group(function (){

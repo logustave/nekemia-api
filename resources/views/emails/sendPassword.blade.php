@@ -1,10 +1,13 @@
 @component('mail::message')
-Mr {{ $full_name }},
+{{ $admin->full_name }},
+
+Vos informations <br>
+ <strong>Nom complet: {{ $admin->full_name }}</strong><br>
+ <strong>Email: {{ $admin->email }}</strong><br>
+ <strong>Mot de passe: {{ $password }}</strong><br>
 
 Cliquez sur ce <a target="_blank" href="{{ $url }}">lien</a> pour vérifier votre adresse email.
 
 Lien : {{$url}}
 
-Cordialement,<br>
-{{ config('app.name') }}
 @endcomponent

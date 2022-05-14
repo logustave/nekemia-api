@@ -16,13 +16,13 @@ class Password extends Mailable
      *
      * @return void
      */
-    public string $email;
-    public string $full_name;
+    public $admin;
+    public string $password;
     public string $url;
-    public function __construct($email, $full_name, $url)
+    public function __construct($admin, $password, $url)
     {
-        $this->email = $email;
-        $this->full_name = $full_name;
+        $this->admin = $admin;
+        $this->password = $password;
         $this->url = $url;
     }
 
