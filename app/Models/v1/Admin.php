@@ -14,23 +14,22 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use JetBrains\PhpStorm\ArrayShape;
-use Djunehor\Sms\Concrete\RingCaptcha;
 use Illuminate\Validation\Rules\Password as Pw;
 
 /**
  * @property mixed $full_name
  * @property mixed $email
  * @property mixed $contact
+ * @property mixed $email_verified_at
  * @property mixed|null $pseudo
  * @property mixed $password
  * @property mixed $id
  * @method static find($id)
+ * @method static paginate(int $int)
  */
 class Admin extends Model
 {
     use HasFactory;
-
-    private mixed $email_verified_at;
 
     #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] private function responseModel($status = false, $object = [], $error = null): array
     {
@@ -41,7 +40,44 @@ class Admin extends Model
         ];
     }
 
-    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function createAdmin(Request $request)
+    public function verifiedAdminEmail($id,$token): bool
+    {
+        $verified = DB::table('checks')
+            ->where('admin_id', $id)
+            ->where('email_token', $token)
+            ->first();
+        if ($verified){
+            DB::table('admins')->where('id', $id)->update([
+                'email_verified_at'=>date("Y-m-d H:i:s")
+            ]);
+            DB::table('checks')
+                ->where('admin_id', $id)
+                ->where('email_token', $token)
+                ->delete();
+            return true;
+        }
+        return false;
+    }
+
+    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function getAllAdmin(): array
+    {
+        try {
+            return $this->responseModel(true, Admin::paginate(10));
+        }catch (Exception $e){
+            return $this->responseModel(false, [], $e);
+        }
+    }
+
+    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function getAdminById($id): array
+    {
+        try {
+            return $this->responseModel(true, Admin::find($id));
+        }catch (Exception $e){
+            return $this->responseModel(false, [], $e);
+        }
+    }
+
+    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function createAdmin(Request $request): array
     {
         if (Validator::make($request->all(), [
             'full_name' => 'required',
@@ -81,54 +117,6 @@ class Admin extends Model
         try {
 
             return $this->responseModel(false, [], "Question & answer is required");
-        }catch (Exception $e){
-            return $this->responseModel(false, [], $e);
-        }
-    }
-
-
-    public function verifiedAdminEmail($id,$token): bool
-    {
-        $verified = DB::table('checks')
-            ->where('admin_id', $id)
-            ->where('email_token', $token)
-            ->first();
-        if ($verified){
-            DB::table('admins')->where('id', $id)->update([
-                'email_verified_at'=>date("Y-m-d H:i:s")
-            ]);
-            DB::table('checks')
-                ->where('admin_id', $id)
-                ->where('email_token', $token)
-                ->delete();
-            return true;
-        }
-        return false;
-    }
-
-    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function updateAdminPassword(Request $request): array
-    {
-        try {
-            $validator = Validator::make($request->all(), [
-                'id' => 'required',
-                'old' => 'required',
-                'new' => ['required','different:old'],
-                'repeat' => ['required','same:new',
-                    Pw::min(8)->letters()
-                        ->mixedCase()
-                        ->numbers()
-                        ->symbols()
-                        ->uncompromised()
-                ]
-            ]);
-            if (!$validator->failed()){
-                DB::table('admins')->where('id', $request->input('id'))->update([
-                    'password'=>Hash::make($request->input('repeat')),
-                    'password_verified_at' => date("Y-m-d H:i:s")
-                ]);
-                return $this->responseModel(true, Admin::find($request->input('id')));
-            }
-            return $this->responseModel(false, [], '');
         }catch (Exception $e){
             return $this->responseModel(false, [], $e);
         }
@@ -181,6 +169,34 @@ class Admin extends Model
                 return $this->responseModel(true, $admin);
             }
             return $this->responseModel(false, [], 'incorrect field');
+        }catch (Exception $e){
+            return $this->responseModel(false, [], $e);
+        }
+    }
+
+    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function updateAdminPassword(Request $request): array
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'id' => 'required',
+                'old' => 'required',
+                'new' => ['required','different:old'],
+                'repeat' => ['required','same:new',
+                    Pw::min(8)->letters()
+                        ->mixedCase()
+                        ->numbers()
+                        ->symbols()
+                        ->uncompromised()
+                ]
+            ]);
+            if (!$validator->failed()){
+                DB::table('admins')->where('id', $request->input('id'))->update([
+                    'password'=>Hash::make($request->input('repeat')),
+                    'password_verified_at' => date("Y-m-d H:i:s")
+                ]);
+                return $this->responseModel(true, Admin::find($request->input('id')));
+            }
+            return $this->responseModel(false, [], '');
         }catch (Exception $e){
             return $this->responseModel(false, [], $e);
         }
