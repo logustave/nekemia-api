@@ -6,7 +6,7 @@
                 <div class="card-header pb-0 p-3">
                     <div class="row">
                         <div class="col-6 d-flex align-items-center">
-                            <h6 class="mb-0">Categories</h6>
+                            <h3 class="mb-0">Listes des Categories</h3>
                         </div>
 
                     </div>
@@ -38,10 +38,14 @@
                 <div class="card-body">
                     <form role="form text-left">
                         <div class="mb-3">
+                            <label>nom:</label>
+
                             <input type="text" name="label" class="form-control" placeholder="label" aria-label="Name"
                                    aria-describedby="email-addon">
                         </div>
                         <div class="mb-3">
+                            <label>Description:</label>
+
                             <textarea name="description" class="form-control" placeholder="Description"
                                       style="resize: none" rows="5"></textarea>
                         </div>

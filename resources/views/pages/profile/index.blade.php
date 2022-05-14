@@ -10,22 +10,26 @@
 
                 <div class="card-body">
                     <div class="mb-3">
-                        <label>Question:</label>
+                        <label>Nom & prenoms:</label>
+                        full_name
+                    </div>
+                    <div class="mb-3">
+                        <label>pseudo:</label>
                         Nom
                     </div>
                     <div class="mb-3">
-                        <label>Reponse:</label>
+                        <label>email:</label>
                         Nom
                     </div>
                     <div class="mb-3 text-md">
-                        <label>date de publication:</label>
+                        <label>date de creation:</label>
                         12/01/2002
 
                     </div>
 
                     <div class="row text-center">
                         <div class="text-center col-md-6">
-                            <a type="button" href="/faq/modifier/1" class="btn bg-success text-white">Modifier</a>
+                            <a type="button" href="/profile/modifier/1" class="btn bg-success text-white">Modifier</a>
                         </div>
 
                         <div class="text-center col-md-5">

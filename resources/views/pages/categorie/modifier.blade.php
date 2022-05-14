@@ -10,9 +10,12 @@
                 <div class="card-body">
                     <form role="form text-left">
                         <div class="mb-3">
+                            <label>Nom:</label>
                             <input type="text" name="label" value="categorie" class="form-control" placeholder="label" aria-label="Name" aria-describedby="email-addon">
                         </div>
                         <div class="mb-3">
+                            <label>Description:</label>
+
                             <textarea name="description"  class="form-control" placeholder="Description" style="resize: none" rows="5">lorem ipsum</textarea>
                         </div>
 

@@ -6,7 +6,7 @@
                 <div class="card-header pb-0 p-3">
                     <div class="row">
                         <div class="col-6 d-flex align-items-center">
-                            <h6 class="mb-0">Faq</h6>
+                            <h3 class="mb-0">Faq</h3>
                         </div>
 
                     </div>
@@ -39,10 +39,14 @@
                 <div class="card-body">
                     <form role="form text-left">
                         <div class="mb-3">
+                            <label>Question:</label>
+
                             <input type="text" name="question" class="form-control" placeholder="question ?" aria-label="Name"
                                    >
                         </div>
                         <div class="mb-3">
+                            <label>Reponse:</label>
+
                             <textarea name="answer" class="form-control" placeholder="Reponse"
                                       style="resize: none" rows="5"></textarea>
                         </div>

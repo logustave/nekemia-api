@@ -94,7 +94,7 @@
                 <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Profiles</h6>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="/compte">
+                <a class="nav-link " href="/comptes">
                     <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                         <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                             <title>settings </title>
@@ -110,7 +110,7 @@
                             </g>
                         </svg>
                     </div>
-                    <span class="nav-link-text ms-1">Compte</span>
+                    <span class="nav-link-text ms-1">Comptes administrateurs</span>
                 </a>
             </li>
 
@@ -120,13 +120,13 @@
 
     <div class="sidenav-footer my-3">
         <div class="card card-background shadow-none card-background-mask-secondary" id="sidenavCard">
-            <div class="full-background" style="background-image: url('../assets/img/curved-images/white-curved.jpg')"></div>
+            <div class="full-background" style="background: #0b5d6f"></div>
             <div class="card-body text-start p-3 w-100">
 
                 <div class="docs-info">
-                    <h6 class="text-white up mb-0">Identifiant :</h6>
-                    <h6 class="text-white up mb-0">Contact :</h6>
-                    <a href="compte" target="_blank" class="btn btn-white btn-sm w-100 mb-0">Informations</a>
+                    <h6 class="text-white up mb-0">Identifiant :<span class="text-success">xxxx</span></h6>
+                    <h6 class="text-white up mb-0">Contact :<span class="text-success">000</span></h6>
+                    <a href="/profile"  class="btn btn-white btn-sm w-100 mb-0">Informations</a>
                 </div>
             </div>
         </div>
