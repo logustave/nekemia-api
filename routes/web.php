@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\v1\AdminController;
 use Djunehor\Sms\Concrete\RingCaptcha;
+use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
@@ -23,11 +24,19 @@ Route::get('/', function () {
 Route::get('/verified-email/{id}/{token}', [AdminController::class, 'verifiedAdminEmail'])->name('verified-email');
 
 Route::get('sendSms', function (){
-    $response = Http::post('https://api.ringcaptcha.com/y7u4yji7efy2ohe8y2y4/code/sms', [
-        'phone'=>2250584443227,
-        'api_key'=>'9f2b039d02e06643ebd69c2d683af11b72bf572f'
+    $client = new Client();
+    $res = $client->request('post', "https://api.ringcaptcha.com/y7u4yji7efy2ohe8y2y4/code/sms", [
+        'headers' => [
+            'Accept' => 'application/json',
+        ],
+        'form_params' => [
+            "app_key"=> 'y7u4yji7efy2ohe8y2y4',
+            "api_key"=>'9f2b039d02e06643ebd69c2d683af11b72bf572f',
+            "phone"=>"+22584443227",
+            'message' => "Code de vérification Nekemia BTP: {{ code }}.",
+        ]
     ]);
-    dd($response);
+    dd($res->getBody()->getContents());
 });
 
 //routes for category
