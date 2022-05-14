@@ -88,7 +88,7 @@ class Admin extends Model
     }
 
 
-    public function verifiedEmail($id,$token): bool
+    public function verifiedAdminEmail($id,$token): bool
     {
         $verified = DB::table('checks')
             ->where('admin_id', $id)
@@ -107,17 +107,31 @@ class Admin extends Model
         return false;
     }
 
-    public function updatePassword(Request $request){
-        Validator::make($request->all(), [
-            'old' => 'required',
-            'new' => 'required',
-            'repeat' => ['required', 'confirmed',
-                Pw::min(8)->letters()
-                    ->mixedCase()
-                    ->numbers()
-                    ->symbols()
-                    ->uncompromised()
-            ]
-        ]);
+    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function updateAdminPassword(Request $request): array
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'id' => 'required',
+                'old' => 'required',
+                'new' => ['required','different:old'],
+                'repeat' => ['required','same:new',
+                    Pw::min(8)->letters()
+                        ->mixedCase()
+                        ->numbers()
+                        ->symbols()
+                        ->uncompromised()
+                ]
+            ]);
+            if (!$validator->failed()){
+                DB::table('admins')->where('id', $request->input('id'))->update([
+                    'password'=>Hash::make($request->input('repeat')),
+                    'password_verified_at' => date("Y-m-d H:i:s")
+                ]);
+                return $this->responseModel(true, Admin::find($request->input('id')));
+            }
+            return $this->responseModel(false, [], '');
+        }catch (Exception $e){
+            return $this->responseModel(false, [], $e);
+        }
     }
 }

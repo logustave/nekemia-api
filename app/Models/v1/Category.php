@@ -14,6 +14,7 @@ use JetBrains\PhpStorm\ArrayShape;
  * @property mixed $label
  * @property bool|mixed $description
  * @method static find()
+ * @method static paginate(int $int)
  */
 class Category extends Model
 {
@@ -74,7 +75,7 @@ class Category extends Model
     #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function getAllCategory(): array
     {
         try {
-            return $this->responseModel(true, Category::all());
+            return $this->responseModel(true, Category::paginate(10));
         }catch (Exception $e){
             return $this->responseModel(false, [], $e);
         }
