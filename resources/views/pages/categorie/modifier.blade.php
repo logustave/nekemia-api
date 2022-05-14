@@ -1,4 +1,4 @@
-@extends('template')
+@extends('layouts.template')
 @section('body')
     <div class="row ">
         <div class="col-xl-4 col-lg-5 col-md-7 mx-auto">

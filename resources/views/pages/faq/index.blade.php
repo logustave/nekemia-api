@@ -1,4 +1,4 @@
-@extends('template')
+@extends('layouts.template')
 @section('body')
     <div class="row my-4">
         <div class="col-lg-8">
@@ -20,7 +20,8 @@
                             </div>
                             <div class="d-flex align-items-center text-sm ">
                                 <small class="mx-1">01/01/2022</small>
-                                <a class="px-3 mb-0 btn btn-outline-primary" href="categorie/information/1" type="button">Voir</a>
+                                <a class="px-3 mb-0 btn btn-outline-primary" href="categorie/information/1"
+                                   type="button">Voir</a>
                             </div>
                         </li>
 
@@ -38,10 +39,12 @@
                 <div class="card-body">
                     <form role="form text-left">
                         <div class="mb-3">
-                            <input type="text" name="label" class="form-control" placeholder="label" aria-label="Name" aria-describedby="email-addon">
+                            <input type="text" name="label" class="form-control" placeholder="label" aria-label="Name"
+                                   aria-describedby="email-addon">
                         </div>
                         <div class="mb-3">
-                            <textarea name="description" class="form-control" placeholder="Description" style="resize: none" rows="5"></textarea>
+                            <textarea name="description" class="form-control" placeholder="Description"
+                                      style="resize: none" rows="5"></textarea>
                         </div>
 
 

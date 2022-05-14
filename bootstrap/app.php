@@ -41,6 +41,10 @@ $app->singleton(
     App\Exceptions\Handler::class
 );
 
+$app->register(
+    Djunehor\Sms\SmsServiceProvider::class
+);
+
 /*
 |--------------------------------------------------------------------------
 | Return The Application

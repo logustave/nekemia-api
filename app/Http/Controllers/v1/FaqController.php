@@ -90,12 +90,20 @@ class FaqController extends Controller
 
     /**
      * @OA\Get(
-     *      path="/v1/faq",
+     *      path="/v1/faq?page={id}",
      *      operationId="getAllFaqAPI",
      *      tags={"FAQ"},
      *      summary="GET FAQ",
      *      description="GET FAQ",
      *      security={{"bearerAuth":{}}},
+     *      @OA\Parameter(
+     *          name="page",
+     *          in="query",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
      *     @OA\Response(
      *          response=200,
      *          description="Opération éffectuée",

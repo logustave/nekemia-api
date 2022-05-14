@@ -13,7 +13,7 @@ use Laravel\Passport\HasApiTokens;
  * @property mixed $email
  * @property mixed|string $password
  */
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
 

@@ -1,4 +1,4 @@
-@extends('template')
+@extends('layouts.template')
 @section('body')
     <div class="row">
         <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
@@ -9,7 +9,7 @@
                             <div class="numbers">
                                 <p class="text-sm mb-0 text-capitalize font-weight-bold">messages Blog</p>
                                 <h5 class="font-weight-bolder mb-0">
-                                   10
+                                    10
                                     <span class="text-success text-sm font-weight-bolder">6 lu(s)</span>
                                     <span class="text-danger text-sm font-weight-bolder">4 non-lu(s)</span>
                                 </h5>
@@ -120,7 +120,8 @@
                                 </span>
                             </div>
                             <div class="ms-auto text-end">
-                                <a class="btn btn-link text-primary px-3 mb-0" href="blog/voir"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Modifier</a>
+                                <a class="btn btn-link text-primary px-3 mb-0" href="blog/voir"><i
+                                            class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Modifier</a>
                             </div>
                         </li>
 

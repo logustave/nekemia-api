@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\v1\AdminController;
 use App\Http\Controllers\v1\FaqController;
 use App\Http\Controllers\v1\UserController;
 use Illuminate\Support\Facades\Route;
@@ -21,5 +22,10 @@ Route::prefix('v1')->group(function(){
     Route::prefix('faq')->group(function(){
         Route::get('/',[FaqController::class, 'getAllFaqAPI']);
         Route::get('/{id}',[FaqController::class, 'getFaqByIdAPI']);
+    });
+    Route::prefix('admin')->group(function(){
+        Route::get('/',[FaqController::class, 'getAllFaqAPI']);
+        Route::get('/{id}',[FaqController::class, 'getFaqByIdAPI']);
+        Route::post('/', [AdminController::class, 'createAdminAPI']);
     });
 });
