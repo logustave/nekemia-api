@@ -79,6 +79,60 @@
                 ]
             }
         },
+        "/v1/category": {
+            "post": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "CREATE CATEGORY",
+                "description": "CREATE CATEGORY",
+                "operationId": "createCategory",
+                "requestBody": {
+                    "description": "Transmettre les informations",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "label": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Opération éffectuée",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Non authentifié"
+                    },
+                    "403": {
+                        "description": "Interdit"
+                    },
+                    "400": {
+                        "description": "Mauvaise demande"
+                    },
+                    "404": {
+                        "description": "pas trouvé"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/v1/faq?page={id}": {
             "get": {
                 "tags": [
@@ -349,9 +403,9 @@
                 "scheme": "http",
                 "flows": {
                     "password": {
-                        "authorizationUrl": "http://localhost/oauth/authorize",
-                        "tokenUrl": "http://localhost/oauth/token",
-                        "refreshUrl": "http://localhost/token/refresh",
+                        "authorizationUrl": "http://nekemia-api.test/oauth/authorize",
+                        "tokenUrl": "http://nekemia-api.test/oauth/token",
+                        "refreshUrl": "http://nekemia-api.test/token/refresh",
                         "scopes": []
                     }
                 }
