@@ -33,19 +33,14 @@ class Category extends Model
     {
         try {
             $validate = Validator::make($request->all(), [
-                'label' => 'required',
+                'label' => 'unique:categories,label',
             ]);
             if (!$validate->fails()){
-                $label = DB::table('categories')
-                    ->where('label', $request->input('label'))
-                    ->first();
-                if ($label) return $this->responseModel(false, [], "category $label already exist"); else{
-                    $category = new Category();
-                    $category->label = $request->input('label');
-                    $category->description = $request->input('description') ? $request->input('description') : null;
-                    $category->save();
-                    return $this->responseModel(true, $category);
-                }
+                $category = new Category();
+                $category->label = $request->input('label');
+                $category->description = $request->input('description') ? $request->input('description') : null;
+                $category->save();
+                return $this->responseModel(true, $category);
             }
             return $this->responseModel(false, [], $validate->failed());
         }catch (Exception $e){
