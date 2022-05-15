@@ -29,7 +29,7 @@
                         </div>
 
                         <div class="text-center col-md-5">
-                            <button type="button" class="btn bg-gradient-danger w-100">Supprimer</button>
+                            <a  href="#" type="button" class="btn bg-gradient-danger ">Supprimer</a>
                         </div>
                     </div>
                 </div>

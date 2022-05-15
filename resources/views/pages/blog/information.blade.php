@@ -10,26 +10,28 @@
 
                 <div class="card-body">
                     <div class="mb-3">
-                        <label>Question:</label>
-                        Nom
+                        <label>nom de l'auteur:</label>
+                        nom
                     </div>
                     <div class="mb-3">
-                        <label>Reponse:</label>
-                        Nom
+                        <label>Titre:</label>
+                        lorem
                     </div>
-                    <div class="mb-3 text-md">
-                        <label>date de publication:</label>
-                        12/01/2002
-
+                    <div class="mb-3">
+                        <label>Image:</label>
+                        <a href="#">Voir</a>
+                    </div>
+                    <div class="mb-3">
+                        <label>Description:</label>
                     </div>
 
                     <div class="row text-center">
                         <div class="text-center col-md-6">
-                            <a type="button" href="/faq/modifier/1" class="btn bg-success text-white">Modifier</a>
+                            <a  href="/blog/modifier/1" class="btn bg-gradient-success text-white">Modifier</a>
                         </div>
 
-                        <div class="text-center col-md-5">
-                            <button type="button" class="btn bg-gradient-danger w-100">Supprimer</button>
+                        <div class="text-center col-md-6">
+                            <a href="#"  class="btn bg-gradient-danger">Supprimer</a>
                         </div>
                     </div>
                 </div>

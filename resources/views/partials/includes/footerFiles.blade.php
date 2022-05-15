@@ -181,6 +181,13 @@
         }
         Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
     }
+
+
+</script>
+<script>
+    $(document).ready(function() {
+        $('#summernote').summernote();
+    });
 </script>
 <!-- Github buttons -->
 <script async defer src="{{asset('https://buttons.github.io/buttons.js')}}"></script>

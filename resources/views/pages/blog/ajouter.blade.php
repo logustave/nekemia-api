@@ -1,7 +1,8 @@
+
 @extends('layouts.template')
 @section('body')
     <div class="row ">
-        <div class="col-md-7 mx-auto">
+        <div class="">
             <div class="card z-index-0">
                 <div class="card-header text-center pt-4">
                     <h5>Informations</h5>
@@ -11,6 +12,7 @@
                     <form role="form text-left">
                         <div class="mb-3">
                             <label>nom de l'auteur:</label>
+
                             <input type="text" name="full_name" class="form-control" placeholder="John Doe" aria-label="Name">
                         </div>
                         <div class="mb-3">
@@ -27,19 +29,11 @@
                                       style="resize: none" rows="8"></textarea>
                         </div>
 
-
-                        <div class="row text-center">
-                            <div class="text-center col-md-6">
-                                <a type="button" href="/blog/modifier/1" class="btn bg-success text-white">Modifier</a>
-                            </div>
-
-                            <div class="text-center col-md-5">
-                                <a type="button" class="btn bg-gradient-danger w-100" href="{{url()->previous()}}">Retour</a>
-                            </div>
+                        <div class="text-center">
+                            <button type="button" class="btn bg-success text-white w-50 my-4 mb-2">Valider</button>
                         </div>
                     </form>
                 </div>
-
             </div>
         </div>
     </div>

@@ -17,8 +17,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
+Route::prefix("/")->group(function (){
+    Route::get('/',function (){
+        return View('index');
+    });
+    Route::get('dashboard',function (){
+        return View('index');
+    })->name('acceuil');
 });
 
 Route::get('/verified-email/{id}/{token}', [AdminController::class, 'verifiedAdminEmail'])->name('verified-email');
@@ -54,6 +59,21 @@ Route::prefix('/faq')->group(function (){
     });
     Route::get('/modifier/{id}', function () {
         return view('pages.categorie.modifier');
+    });
+});
+
+Route::prefix('/blog')->group(function (){
+    Route::get('/',function (){
+        return view('pages.blog.index');
+    });
+    Route::get('/ajouter', function () {
+        return view('pages.blog.ajouter');
+    });
+    Route::get('/information/{id}', function () {
+        return view('pages.blog.information');
+    });
+    Route::get('/modifier/{id}', function () {
+        return view('pages.blog.modifier');
     });
 });
 
