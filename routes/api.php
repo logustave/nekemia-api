@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\v1\AdminController;
 use App\Http\Controllers\v1\BlogController;
+use App\Http\Controllers\v1\CategoryController;
 use App\Http\Controllers\v1\FaqController;
 use App\Http\Controllers\v1\UserController;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +27,10 @@ Route::prefix('v1')->group(function(){
     });
 
     Route::prefix('blog')->group(function (){
-        Route::post('', [BlogController::class, ''])->name('getAllBlog');
+        Route::post('', [BlogController::class, ''])->name('getAllBlogAPI');
+    });
+
+    Route::prefix('category')->group(function (){
+        Route::post('', [CategoryController::class, 'createCategoryAPI'])->name('createCategoryAPI');
     });
 });

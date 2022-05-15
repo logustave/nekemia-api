@@ -55,10 +55,11 @@ class Faq extends Model
     #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function updateFaq(Request $request): array
     {
         try {
-            if (Validator::make($request->all(), [
+            $validate = Validator::make($request->all(), [
                 'question' => 'required',
                 'answer'=> 'required'
-            ])){
+            ]);
+            if (!$validate->fails()){
                 $faq = Faq::find($request->input('id'));
                 if (!$faq) return $this->responseModel(false, [], "Question does not exist"); else{
                     $faq->question = $request->input();
@@ -67,7 +68,7 @@ class Faq extends Model
                     return $this->responseModel(true, $faq);
                 }
             }
-            return $this->responseModel(false, [], "Question & answer is required");
+            return $this->responseModel(false, [], $validate->failed());
         }catch (Exception $e){
             return $this->responseModel(false, [], $e);
         }
