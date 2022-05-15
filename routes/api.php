@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\v1\AdminController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\v1\BlogController;
 use App\Http\Controllers\v1\CategoryController;
 use App\Http\Controllers\v1\FaqController;
@@ -33,4 +33,6 @@ Route::prefix('v1')->group(function(){
     Route::prefix('category')->group(function (){
         Route::post('', [CategoryController::class, 'createCategoryAPI'])->name('createCategoryAPI');
     });
+
+    Route::post('message', [ContactController::class, 'createMessageAPI']);
 });

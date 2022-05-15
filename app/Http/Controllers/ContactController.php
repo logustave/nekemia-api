@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\v1\Contact;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class ContactController extends Controller
@@ -81,5 +82,61 @@ class ContactController extends Controller
     public function destroy(Contact $contact)
     {
         //
+    }
+
+    /**
+     * @OA\Post(
+     *      path="/v1/message",
+     *      operationId="createMessage",
+     *      tags={"Message"},
+     *      summary="CREATE MESSAGE",
+     *      description="CREATE MESSAGE",
+     *      security={{"bearerAuth":{}}},
+     *      @OA\RequestBody(
+     *          required=true,
+     *          description="Transmettre les informations",
+     *          @OA\JsonContent(
+     *             @OA\Property(property="full_name", type="string"),
+     *             @OA\Property(property="email", type="string"),
+     *             @OA\Property(property="contact", type="string"),
+     *             @OA\Property(property="subject", type="string"),
+     *             @OA\Property(property="message", type="string")
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Opération éffectuée",
+     *          @OA\MediaType(
+     *           mediaType="application/json",
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Non authentifié",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Interdit"
+     *      ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Mauvaise demande"
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="pas trouvé"
+     *      ),
+     *  )
+     */
+
+    public function createMessageAPI(Request $request): JsonResponse
+    {
+        $contact = (new Contact)->createMessage($request);
+        return response()->json(
+            $contact,
+            200,
+            ['Content-Type' => 'application/json;charset=UTF-8', 'Charset' => 'utf-8'],
+            $this->format
+        );
     }
 }
