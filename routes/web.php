@@ -5,7 +5,7 @@ use Djunehor\Sms\Concrete\RingCaptcha;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\v1\CategoryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -48,6 +48,8 @@ Route::prefix('/categorie')->group(function (){
     Route::get('/modifier/{id}', function () {
         return view('pages.categorie.modifier');
     });
+    Route::post('/ajouter',[ CategoryController::class,'create' ]) ->name("createCategory");
+
 });
 
 Route::prefix('/faq')->group(function (){
