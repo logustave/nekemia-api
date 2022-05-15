@@ -24,9 +24,14 @@ class CategoryController extends Controller
      *
      * @return Response
      */
-    public function create(): Response
+    public function create(Request $request): Response
     {
-        //
+        $data = [
+           'label' => $request -> label,
+            'description' => $request -> description
+        ];
+        return  $data;
+
     }
 
     /**
