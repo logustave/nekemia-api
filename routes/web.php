@@ -48,7 +48,7 @@ Route::prefix('/categorie')->group(function (){
     Route::get('/modifier/{id}', function () {
         return view('pages.categorie.modifier');
     });
-    Route::get('/ajouter',[ CategoryController::class,'create' ]) ->name("createCategory");
+    Route::post('/ajouter',[ CategoryController::class,'create' ]) ->name("createCategory");
 
 });
 

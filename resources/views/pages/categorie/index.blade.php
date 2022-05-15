@@ -36,8 +36,8 @@
                 </div>
 
                 <div class="card-body">
-                    {{csrf_field()}}
-                    <form role="form text-left" action="{{route("createCategory")}}">
+                    <form role="form text-left" method="post" action="{{route("createCategory")}}">
+                        {{csrf_field()}}
                         <div class="mb-3">
                             <label>nom:</label>
 

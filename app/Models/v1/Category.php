@@ -38,10 +38,10 @@ class Category extends Model
                 $label = DB::table('categories')
                     ->where('label', $request->input('label'))
                     ->first();
-                if ($label) return $this->responseModel(false, [], `category $label already exist`); else{
+                if ($label) return $this->responseModel(false, [], "category $label already exist"); else{
                     $category = new Category();
-                    $category->label = $request->input();
-                    $category->description = $request->input('description') && $request->input('description');
+                    $category->label = $request->input('label');
+                    $category->description = $request->input('description') ? $request->input('description') : null;
                     $category->save();
                     return $this->responseModel(true, $category);
                 }
