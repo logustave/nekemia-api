@@ -33,12 +33,12 @@ class Category extends Model
     {
         try {
             $validate = Validator::make($request->all(), [
-                'label' => 'unique:categories,label',
+                'label' => 'required|unique:categories,label',
             ]);
             if (!$validate->fails()){
                 $category = new Category();
                 $category->label = $request->input('label');
-                $category->description = $request->input('description') ? $request->input('description') : null;
+                $category->description = $request->input('description');
                 $category->save();
                 return $this->responseModel(true, $category);
             }
@@ -52,13 +52,14 @@ class Category extends Model
     {
         try {
             $validate = Validator::make($request->all(), [
-                'label' => 'required',
+                'id' => 'required',
+                'label' => 'required'
             ]);
             if (!$validate->fails()){
                 $category = Category::find($request->input('id'));
                 if (!$category) return $this->responseModel(false, [], "category does not exist"); else{
                     $category->label = $request->input();
-                    $category->description = $request->input('description') && $request->input('description');
+                    $category->description = $request->input('description');
                     $category->save();
                     return $this->responseModel(true, $category);
                 }
