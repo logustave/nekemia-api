@@ -23,7 +23,15 @@ Route::get('/', function () {
 
 Route::get('/verified-email/{id}/{token}', [AdminController::class, 'verifiedAdminEmail'])->name('verified-email');
 
-//routes for category
+Route::prefix('administrateur')->group(function (){
+    Route::get('/', [AdminController::class, '']);
+    Route::get('{id}', [AdminController::class, '']);
+    Route::post('/', [AdminController::class, '']);
+    Route::get('/update', [AdminController::class, '']);
+    Route::put('/update/details', [AdminController::class, '']);
+    Route::put('/update/password', [AdminController::class, '']);
+    Route::put('/update/email', [AdminController::class, '']);
+});
 
 Route::prefix('/categorie')->group(function (){
     Route::get('/',function (){
@@ -37,11 +45,6 @@ Route::prefix('/categorie')->group(function (){
     });
 });
 
-//end routes for category
-
-
-//routes for faq
-
 Route::prefix('/faq')->group(function (){
     Route::get('/',function (){
         return view('pages.faq.index');
@@ -53,9 +56,6 @@ Route::prefix('/faq')->group(function (){
         return view('pages.categorie.modifier');
     });
 });
-
-
-//routes for comptes admin
 
 Route::prefix('/comptes')->group(function (){
     Route::get('/',function (){
@@ -71,5 +71,4 @@ Route::prefix('/profile')->group(function (){
     Route::get('/modifier/{id}', function () {
         return view('pages.profile.modifier');
     });
-
 });
