@@ -36,7 +36,8 @@
                 </div>
 
                 <div class="card-body">
-                    <form role="form text-left">
+                    {{csrf_field()}}
+                    <form role="form text-left" action="{{route("createCategory")}}">
                         <div class="mb-3">
                             <label>nom:</label>
 
@@ -52,7 +53,7 @@
 
 
                         <div class="text-center">
-                            <button type="button" class="btn bg-success text-white w-50 my-4 mb-2">Valider</button>
+                            <button type="submit" class="btn bg-success text-white w-50 my-4 mb-2">Valider</button>
                         </div>
                     </form>
                 </div>

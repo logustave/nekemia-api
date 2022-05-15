@@ -24,13 +24,14 @@ class CategoryController extends Controller
      *
      * @return Response
      */
-    public function create(Request $request): Response
+    public function create(Request $request)
     {
-        $data = [
-           'label' => $request -> label,
-            'description' => $request -> description
-        ];
-        return  $data;
+        $categorie=new Category();
+        $data= $request;
+        $categorie->createCategory($data);
+
+
+        return  dump($request);
 
     }
 
