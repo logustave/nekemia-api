@@ -49,8 +49,15 @@
 
                             <textarea name="description" class="form-control" placeholder="Description"
                                       style="resize: none" rows="5"></textarea>
-                        </div>
-
+                        </div>@if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
 
                         <div class="text-center">
                             <button type="submit" class="btn bg-success text-white w-50 my-4 mb-2">Valider</button>

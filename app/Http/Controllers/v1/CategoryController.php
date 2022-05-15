@@ -32,7 +32,7 @@ class CategoryController extends Controller
         $categorie->createCategory($data);
 
 
-        return  dump($request);
+         return back();
 
     }
 
