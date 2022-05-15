@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('blogs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->foreignId('category_id')->references('id')->on('categories')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->string('full_name', 60);
             $table->string('title', 100)->unique();
+            $table->string('slug', 500);
             $table->string('cover_path', 500)->unique();
             $table->longText('content');
             $table->timestamps();

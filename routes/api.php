@@ -23,9 +23,8 @@ Route::prefix('v1')->group(function(){
         Route::get('/',[FaqController::class, 'getAllFaqAPI']);
         Route::get('/{id}',[FaqController::class, 'getFaqByIdAPI']);
     });
-    Route::prefix('admin')->group(function(){
-        Route::get('/',[FaqController::class, 'getAllFaqAPI']);
-        Route::get('/{id}',[FaqController::class, 'getFaqByIdAPI']);
-        Route::post('/', [AdminController::class, 'createAdminAPI']);
+
+    Route::prefix('blog')->group(function (){
+        Route::post();
     });
 });
