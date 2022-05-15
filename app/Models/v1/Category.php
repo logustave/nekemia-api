@@ -36,10 +36,10 @@ class Category extends Model
                 'label' => 'required',
             ]);
             if (!$validate->fails()){
-                $category = DB::table('categories')
+                $label = DB::table('categories')
                     ->where('label', $request->input('label'))
                     ->first();
-                if ($category) return $this->responseModel(false, [], "category $category->label already exist"); else{
+                if ($label) return $this->responseModel(false, [], "category $label already exist"); else{
                     $category = new Category();
                     $category->label = $request->input('label');
                     $category->description = $request->input('description') ? $request->input('description') : null;
