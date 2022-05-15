@@ -13,7 +13,7 @@ use JetBrains\PhpStorm\ArrayShape;
 /**
  * @property mixed $label
  * @property bool|mixed $description
- * @method static find($id)
+ * @method static find()
  * @method static paginate(int $int)
  */
 class Category extends Model
@@ -32,22 +32,21 @@ class Category extends Model
     #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function createCategory(Request $request): array
     {
         try {
-            $validate = Validator::make($request->all(), [
+            if (Validator::make($request->all(), [
                 'label' => 'required',
-            ]);
-            if (!$validate->fails()){
+            ])){
                 $label = DB::table('categories')
                     ->where('label', $request->input('label'))
                     ->first();
-                if ($label) return $this->responseModel(false, [], "category $label already exist"); else{
+                if ($label) return $this->responseModel(false, [], `category $label already exist`); else{
                     $category = new Category();
-                    $category->label = $request->input('label');
+                    $category->label = $request->input();
                     $category->description = $request->input('description') && $request->input('description');
                     $category->save();
                     return $this->responseModel(true, $category);
                 }
             }
-            return $this->responseModel(false, [], $validate->failed());
+            return $this->responseModel(false, [], "label is required");
         }catch (Exception $e){
             return $this->responseModel(false, [], $e);
         }
@@ -56,19 +55,18 @@ class Category extends Model
     #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function updateCategory(Request $request): array
     {
         try {
-            $validate = Validator::make($request->all(), [
+            if (Validator::make($request->all(), [
                 'label' => 'required',
-            ]);
-            if (!$validate->fails()){
+            ])){
                 $category = Category::find($request->input('id'));
-                if (!$category) return $this->responseModel(false, [], "category does not exist"); else{
+                if (!$category) return $this->responseModel(false, [], `category does not exist`); else{
                     $category->label = $request->input();
                     $category->description = $request->input('description') && $request->input('description');
                     $category->save();
                     return $this->responseModel(true, $category);
                 }
             }
-            return $this->responseModel(false, [], $validate->failed());
+            return $this->responseModel(false, [], "label is required");
         }catch (Exception $e){
             return $this->responseModel(false, [], $e);
         }
