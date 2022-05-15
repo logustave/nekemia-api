@@ -11,8 +11,9 @@
 <link href="css/nucleo-icons.css" rel="stylesheet" />
 <link href="css/nucleo-svg.css" rel="stylesheet" />
 <!-- Font Awesome Icons -->
-<script src="{{asset('https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous')}}"></script>
+<script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous'"></script>
 <link href="css/nucleo-svg.css" rel="stylesheet" />
 <!-- CSS Files -->
 <link id="pagestyle" href="{{asset('css/soft-ui-dashboard.css?v=1.0.5')}}" rel="stylesheet" />
 <link type="text/css" href="{{asset('css/cus.css')}}" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote.min.css"/>
