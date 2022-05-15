@@ -134,4 +134,13 @@ class Blog extends Model
             return $this->responseModel(false, [], $e);
         }
     }
+
+    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function deleteBlogById($id): array
+    {
+        try {
+            return $this->responseModel(true, Blog::find($id)->deleted());
+        }catch (Exception $e){
+            return $this->responseModel(false, [], $e);
+        }
+    }
 }
