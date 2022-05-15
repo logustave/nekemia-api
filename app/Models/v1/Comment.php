@@ -36,18 +36,15 @@ class Comment extends Model
             $validator = Validator::make($request->all(), [
                 'blog_id' => 'required',
                 'full_name' => 'required',
-                'comment' => 'required',
-                'cover_path' => 'required'
+                'comment' => 'required'
             ]);
             if (!$validator->fails()){
-                $cover_path = '';
                 $blog_id = $request->input('blog_id');
                 $full_name = $request->input('full_name');
                 $comment_user = $request->input('comment');
                 $contact = $request->input('contact') ? $request->input('contact') : null;
                 $comment = new Comment();
                 $comment->blog_id = $blog_id;
-                $comment->cover_path = $cover_path;
                 $comment->full_name = $full_name;
                 $comment->comment = $comment_user;
                 $comment->contact = $contact;
