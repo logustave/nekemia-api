@@ -10,14 +10,12 @@ use Illuminate\Http\Response;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function index(): Response
+
+    public function index()
     {
-        //
+        $categorie = new Category();
+        $data =$categorie->getAllCategory();
+        return view('pages.categorie.index',['data'=>$data]);
     }
 
     /**
@@ -30,9 +28,7 @@ class CategoryController extends Controller
         $categorie=new Category();
         $data= $request;
         $categorie->createCategory($data);
-
-
-         return back();
+        return back();
 
     }
 
