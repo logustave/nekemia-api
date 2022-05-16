@@ -24,7 +24,7 @@ class CategoryController extends Controller
      */
     public function create(Request $request)
     {
-        (new Category())->createCategory($request);
+       $data= (new Category())->createCategory($request);
         return back();
 
     }

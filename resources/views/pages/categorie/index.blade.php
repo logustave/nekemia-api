@@ -54,14 +54,8 @@
                             <textarea name="description" class="form-control" placeholder="Description"
                                       style="resize: none" rows="5"></textarea>
                         </div>
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
+                        @if($errors->any())
+                            <h4>{{$errors->first()}}</h4>
                         @endif
 
                         <div class="text-center">
