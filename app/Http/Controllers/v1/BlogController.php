@@ -148,7 +148,6 @@ class BlogController extends Controller
      *   ),
      *  )
      */
-
     public function getAllBlog(Request $request): JsonResponse
     {
         $blog = (new Blog)->getAllBlog($request);
