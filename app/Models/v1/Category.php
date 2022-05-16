@@ -91,7 +91,7 @@ class Category extends Model
     #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function deleteCategoryById($id): array
     {
         try {
-            return $this->responseModel(true, Category::find($id)->deleted());
+            return $this->responseModel(true, Category::find($id)->delete());
         }catch (Exception $e){
             return $this->responseModel(false, [], $e);
         }

@@ -30,7 +30,8 @@ Route::middleware('auth:api')->group(function () {
         });
 
         Route::prefix('blog')->group(function (){
-            Route::post('', [BlogController::class, ''])->name('getAllBlogAPI');
+            Route::post('', [BlogController::class, 'getAllBlog'])->name('getAllBlogAPI');
+            Route::get('{slug}', [BlogController::class, 'getBlogBySlugAPI'])->name('getBlogBySlugAPI');
         });
 
         Route::prefix('category')->group(function (){
