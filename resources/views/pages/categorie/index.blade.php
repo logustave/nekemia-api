@@ -13,21 +13,21 @@
                 </div>
                 <div class="card-body p-3 pb-0 cardBodyElement">
                     <ul class="list-group listElement">
-                        @dd($object)
 
-                        {{--                        @foreach($items['attributes'] as $q)--}}
-{{--                            <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg element">--}}
-{{--                                <div class="d-flex flex-column">--}}
-{{--                                    <h6 class="mb-1 text-dark font-weight-bold ">{{$data['']}}</h6>--}}
-{{--                                    <span class="text-xs">reponse mettre un sub str apres 200 carracteres </span>--}}
-{{--                                </div>--}}
-{{--                                <div class="d-flex align-items-center text-sm ">--}}
-{{--                                    <small class="mx-1">01/01/2022</small>--}}
-{{--                                    <a class="px-3 mb-0 btn btn-outline-primary" href="faq/information/1"--}}
-{{--                                       type="button">Voir</a>--}}
-{{--                                </div>--}}
-{{--                            </li>--}}
-{{--                        @endforeach--}}
+                         @foreach($object as $q)
+                            <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg element">
+                                <div class="d-flex flex-column">
+                                    <h6 class="mb-1 text-dark font-weight-bold ">{{$q['label']}}</h6>
+
+                                    <span class="text-xs">{{$q['description']}} </span>
+                                </div>
+                                <div class="d-flex align-items-center text-sm ">
+                                    <small class="mx-1">{{date('d-m-Y',strtotime($q['created_at']))}}</small>
+                                    <a class="px-3 mb-0 btn btn-outline-primary" href="{{route("seeCategory",['id'=>$q['id']])}}"
+                                       type="button">Voir</a>
+                                </div>
+                            </li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
@@ -53,7 +53,8 @@
 
                             <textarea name="description" class="form-control" placeholder="Description"
                                       style="resize: none" rows="5"></textarea>
-                        </div>@if ($errors->any())
+                        </div>
+                        @if ($errors->any())
                             <div class="alert alert-danger">
                                 <ul>
                                     @foreach ($errors->all() as $error)

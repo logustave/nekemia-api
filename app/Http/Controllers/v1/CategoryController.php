@@ -13,11 +13,8 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $categorie = new Category();
-        $data =$categorie->getAllCategory();
-
-
-        return view('pages.categorie.index',['object'=>$data["object"]]);
+        $categorie = (new Category())->getAllCategory();
+        return view('pages.categorie.index',['object'=>$categorie["object"],'error'=>""]);
     }
 
     /**
@@ -27,9 +24,7 @@ class CategoryController extends Controller
      */
     public function create(Request $request)
     {
-        $categorie=new Category();
-        $data= $request;
-        $categorie->createCategory($data);
+        (new Category())->createCategory($request);
         return back();
 
     }
@@ -51,9 +46,11 @@ class CategoryController extends Controller
      * @param Category $category
      * @return void
      */
-    public function show(Category $category): void
+    public function show($id)
     {
-        //
+        $categorie=(new Category())->getCategoryById($id);
+        return view('pages.categorie.information',['id'=>$id,"object"=>$categorie['object']]);
+
     }
 
     /**
@@ -62,9 +59,10 @@ class CategoryController extends Controller
      * @param Category $category
      * @return void
      */
-    public function edit(Category $category): void
+    public function edit($id)
     {
-        //
+        $categorie=(new Category())->getCategoryById($id);
+        return view('pages.categorie.modifier',['id'=>$id,"object"=>$categorie['object']]);
     }
 
     /**
@@ -74,9 +72,10 @@ class CategoryController extends Controller
      * @param Category $category
      * @return Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request)
     {
-        //
+        (new Category())->updateCategory($request);
+        return back();
     }
 
     /**
@@ -85,9 +84,10 @@ class CategoryController extends Controller
      * @param Category $category
      * @return Response
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        //
+        $categorie=(new Category())->deleteCategoryById($id);
+        return redirect("categorie");
     }
 
 //    /**

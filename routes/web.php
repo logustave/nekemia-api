@@ -40,13 +40,14 @@ Route::prefix('administrateur')->group(function (){
 
 Route::prefix('/categorie')->group(function (){
     Route::get('/',[ CategoryController::class,'index' ]);
-    Route::get('/information/{id}', function () {
-        return view('pages.categorie.information');
-    });
-    Route::get('/modifier/{id}', function () {
-        return view('pages.categorie.modifier');
-    });
+
+    Route::get('/information/{id}',[ CategoryController::class,'show' ])->name("seeCategory");
+
+    Route::get('/modifier/{id}',[ CategoryController::class,'edit' ])->name("pageEditCategory");
+    Route::get('/delete/{id}',[ CategoryController::class,'destroy' ])->name("deleteCategory");
     Route::post('/ajouter',[ CategoryController::class,'create' ]) ->name("createCategory");
+    Route::post('/update',[ CategoryController::class,'update' ]) ->name("editCategory");
+
 
 });
 
