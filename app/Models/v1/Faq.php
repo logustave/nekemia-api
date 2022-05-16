@@ -99,7 +99,7 @@ class Faq extends Model
     #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function deleteFaqById($id): array
     {
         try {
-            return $this->responseModel(true, Faq::find($id)->deleted());
+            return $this->responseModel(true, Faq::find($id)->delete());
         }catch (Exception $e){
             return $this->responseModel(false, [], $e);
         }

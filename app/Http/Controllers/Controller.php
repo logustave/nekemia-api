@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Crypt;
 /**
  * @OA\Info(
  *      version="1.0.0",
- *      title="Documentation des APIs de Nekiema APIs",
+ *      title="Documentation des APIs de Nekiema BTP",
  *      description="Implementation avec Swagger par Asher Services",
  *      @OA\Contact(
  *          email="mianahissan@protonmail.com"

@@ -10,15 +10,13 @@ use Illuminate\Support\Facades\Validator;
 use JetBrains\PhpStorm\ArrayShape;
 
 /**
- * @property mixed $full_name
- * @property mixed $email
- * @property mixed $contact
- * @property mixed $object
- * @property mixed $message
  * @method static paginate(int $int)
  * @method static find($id)
+ * @property mixed $full_name
+ * @property mixed $email
+ * @property mixed $question
  */
-class Contact extends Model
+class Question extends Model
 {
     use HasFactory;
 
@@ -31,31 +29,25 @@ class Contact extends Model
         ];
     }
 
-    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function createMessage(Request $request): array
+    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function createQuestion(Request $request): array
     {
         try {
 
             $validate = Validator::make($request->all(), [
                 'full_name' => 'required',
                 'email' => 'required',
-                'contact' => 'required',
-                'object' => 'required',
-                'message' => 'required'
+                'question' => 'required'
             ]);
             if (!$validate->fails()){
-                $contact = new Contact;
+                $question = new Question();
                 $full_name = $request->input('full_name');
                 $email = $request->input('email');
-                $author_number = $request->input('contact');
-                $object = $request->input('object');
-                $message = $request->input('message');
-                $contact->full_name = $full_name;
-                $contact->email = $email;
-                $contact->contact = $author_number;
-                $contact->object = $object;
-                $contact->message = $message;
-                $contact->save();
-                return $this->responseModel(true, $contact);
+                $content = $request->input('question');
+                $question->full_name = $full_name;
+                $question->email = $email;
+                $question->question = $content;
+                $question->save();
+                return $this->responseModel(true, $question);
             }
             return $this->responseModel(false, [], $validate->failed());
         }catch (Exception $e){
@@ -63,19 +55,19 @@ class Contact extends Model
         }
     }
 
-    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function getAllMessage(): array
+    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function getAllQuestion(): array
     {
         try {
-            return $this->responseModel(true, Contact::paginate(10));
+            return $this->responseModel(true, Question::paginate(10));
         }catch (Exception $e){
             return $this->responseModel(false, [], $e);
         }
     }
 
-    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function getMessageById($id): array
+    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function getQuestionById($id): array
     {
         try {
-            return $this->responseModel(true, Contact::find($id));
+            return $this->responseModel(true, Question::find($id));
         }catch (Exception $e){
             return $this->responseModel(false, [], $e);
         }

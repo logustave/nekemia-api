@@ -11,15 +11,13 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up(): void
+    public function up()
     {
-        Schema::create('contacts', function (Blueprint $table) {
+        Schema::create('questions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('full_name', 30);
             $table->string('email', 30);
-            $table->string('contact', 30);
-            $table->string('object', 30);
-            $table->text('message');
+            $table->text('question');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -30,8 +28,8 @@ return new class extends Migration
      *
      * @return void
      */
-    public function down(): void
+    public function down()
     {
-        Schema::dropIfExists('contacts');
+        Schema::dropIfExists('questions');
     }
 };

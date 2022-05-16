@@ -19,6 +19,7 @@ use JetBrains\PhpStorm\ArrayShape;
  * @property mixed $title
  * @property mixed $content
  * @property array|mixed|string|string[] $slug
+ * @property mixed|string $cover_path
  */
 class Blog extends Model
 {
@@ -55,7 +56,9 @@ class Blog extends Model
     {
         try {
             $blog = Blog::query()->where('slug', $slug)->first();
-            return $this->responseModel(true, $blog);
+            if ($blog)
+                return $this->responseModel(true, $blog);
+            return $this->responseModel(false, [], 'blog not found');
         }catch (Exception $e){
             return $this->responseModel(false, [], $e);
         }
@@ -86,7 +89,7 @@ class Blog extends Model
                 $blog->category_id = $category_id;
                 $blog->slug = $slug;
                 $blog->admin_id = $creator_id;
-                $blog->$cover_path = $cover_path;
+                $blog->cover_path = $cover_path;
                 $blog->title = $title;
                 $blog->content = $content;
                 $blog->save();
@@ -138,7 +141,7 @@ class Blog extends Model
     #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function deleteBlogById($id): array
     {
         try {
-            return $this->responseModel(true, Blog::find($id)->deleted());
+            return $this->responseModel(true, Blog::find($id)->delete());
         }catch (Exception $e){
             return $this->responseModel(false, [], $e);
         }
