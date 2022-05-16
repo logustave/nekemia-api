@@ -19,69 +19,6 @@
         }
     ],
     "paths": {
-        "/v1/message": {
-            "post": {
-                "tags": [
-                    "Message"
-                ],
-                "summary": "CREATE MESSAGE",
-                "description": "CREATE MESSAGE",
-                "operationId": "createMessage",
-                "requestBody": {
-                    "description": "Transmettre les informations",
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "full_name": {
-                                        "type": "string"
-                                    },
-                                    "email": {
-                                        "type": "string"
-                                    },
-                                    "contact": {
-                                        "type": "string"
-                                    },
-                                    "object": {
-                                        "type": "string"
-                                    },
-                                    "message": {
-                                        "type": "string"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Opération éffectuée",
-                        "content": {
-                            "application/json": {}
-                        }
-                    },
-                    "401": {
-                        "description": "Non authentifié"
-                    },
-                    "403": {
-                        "description": "Interdit"
-                    },
-                    "400": {
-                        "description": "Mauvaise demande"
-                    },
-                    "404": {
-                        "description": "pas trouvé"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        },
         "/v1/admin": {
             "post": {
                 "tags": [
@@ -161,6 +98,69 @@
                                         "type": "string"
                                     },
                                     "description": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Opération éffectuée",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Non authentifié"
+                    },
+                    "403": {
+                        "description": "Interdit"
+                    },
+                    "400": {
+                        "description": "Mauvaise demande"
+                    },
+                    "404": {
+                        "description": "pas trouvé"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/v1/message": {
+            "post": {
+                "tags": [
+                    "Message"
+                ],
+                "summary": "CREATE MESSAGE",
+                "description": "CREATE MESSAGE",
+                "operationId": "createMessage",
+                "requestBody": {
+                    "description": "Transmettre les informations",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "full_name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "contact": {
+                                        "type": "string"
+                                    },
+                                    "object": {
+                                        "type": "string"
+                                    },
+                                    "message": {
                                         "type": "string"
                                     }
                                 },
@@ -358,6 +358,63 @@
                                     "type": "object"
                                 }
                             }
+                        }
+                    },
+                    "401": {
+                        "description": "Non authentifié"
+                    },
+                    "403": {
+                        "description": "Interdit"
+                    },
+                    "400": {
+                        "description": "Mauvaise demande"
+                    },
+                    "404": {
+                        "description": "pas trouvé"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/v1/question": {
+            "post": {
+                "tags": [
+                    "Question"
+                ],
+                "summary": "CREATE QUESTION",
+                "description": "CREATE QUESTION",
+                "operationId": "createQuestion",
+                "requestBody": {
+                    "description": "Transmettre les informations",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "full_name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "question": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Opération éffectuée",
+                        "content": {
+                            "application/json": {}
                         }
                     },
                     "401": {

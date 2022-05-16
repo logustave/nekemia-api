@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\v1;
 
-use App\Models\v1\Contact;
+use App\Http\Controllers\Controller;
+use App\Models\v1\Question;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class ContactController extends Controller
+class QuestionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -42,10 +43,10 @@ class ContactController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\v1\Contact  $contact
+     * @param  \App\Models\v1\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function show(Contact $contact)
+    public function show(Question $question)
     {
         //
     }
@@ -53,10 +54,10 @@ class ContactController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\v1\Contact  $contact
+     * @param  \App\Models\v1\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function edit(Contact $contact)
+    public function edit(Question $question)
     {
         //
     }
@@ -65,10 +66,10 @@ class ContactController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\v1\Contact  $contact
+     * @param  \App\Models\v1\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Contact $contact)
+    public function update(Request $request, Question $question)
     {
         //
     }
@@ -76,21 +77,22 @@ class ContactController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\v1\Contact  $contact
+     * @param  \App\Models\v1\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Contact $contact)
+    public function destroy(Question $question)
     {
         //
     }
 
+
     /**
      * @OA\Post(
-     *      path="/v1/message",
-     *      operationId="createMessage",
-     *      tags={"Message"},
-     *      summary="CREATE MESSAGE",
-     *      description="CREATE MESSAGE",
+     *      path="/v1/question",
+     *      operationId="createQuestion",
+     *      tags={"Question"},
+     *      summary="CREATE QUESTION",
+     *      description="CREATE QUESTION",
      *      security={{"bearerAuth":{}}},
      *      @OA\RequestBody(
      *          required=true,
@@ -98,9 +100,7 @@ class ContactController extends Controller
      *          @OA\JsonContent(
      *             @OA\Property(property="full_name", type="string"),
      *             @OA\Property(property="email", type="string"),
-     *             @OA\Property(property="contact", type="string"),
-     *             @OA\Property(property="object", type="string"),
-     *             @OA\Property(property="message", type="string")
+     *             @OA\Property(property="question", type="string")
      *          ),
      *      ),
      *      @OA\Response(
@@ -131,9 +131,9 @@ class ContactController extends Controller
 
     public function createMessageAPI(Request $request): JsonResponse
     {
-        $contact = (new Contact)->createMessage($request);
+        $question = (new Question)->createQuestion($request);
         return response()->json(
-            $contact,
+            $question,
             200,
             ['Content-Type' => 'application/json;charset=UTF-8', 'Charset' => 'utf-8'],
             $this->format
