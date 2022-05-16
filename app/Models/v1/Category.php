@@ -58,7 +58,7 @@ class Category extends Model
             if (!$validate->fails()){
                 $category = Category::find($request->input('id'));
                 if (!$category) return $this->responseModel(false, [], "category does not exist"); else{
-                    $category->label = $request->input();
+                    $category->label = $request->input('label');
                     $category->description = $request->input('description');
                     $category->save();
                     return $this->responseModel(true, $category);
