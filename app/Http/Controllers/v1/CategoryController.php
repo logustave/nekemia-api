@@ -75,7 +75,7 @@ class CategoryController extends Controller
     public function update(Request $request)
     {
         (new Category())->updateCategory($request);
-        return back();
+        return redirect("categorie/information/$request->id");
     }
 
     /**

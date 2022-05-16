@@ -18,7 +18,6 @@
                             <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg element">
                                 <div class="d-flex flex-column">
                                     <h6 class="mb-1 text-dark font-weight-bold ">{{$q['label']}}</h6>
-
                                     <span class="text-xs">{{$q['description']}} </span>
                                 </div>
                                 <div class="d-flex align-items-center text-sm ">

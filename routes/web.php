@@ -6,6 +6,8 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\v1\CategoryController;
+use App\Http\Controllers\v1\FaqController;
+use App\Http\Controllers\v1\BlogController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -39,44 +41,58 @@ Route::prefix('administrateur')->group(function (){
 });
 
 Route::prefix('/categorie')->group(function (){
-    Route::get('/',[ CategoryController::class,'index' ]);
 
-    Route::get('/information/{id}',[ CategoryController::class,'show' ])->name("seeCategory");
+    Route::controller(CategoryController::class)->group(function () {
 
-    Route::get('/modifier/{id}',[ CategoryController::class,'edit' ])->name("pageEditCategory");
-    Route::get('/delete/{id}',[ CategoryController::class,'destroy' ])->name("deleteCategory");
-    Route::post('/ajouter',[ CategoryController::class,'create' ]) ->name("createCategory");
-    Route::post('/update',[ CategoryController::class,'update' ]) ->name("editCategory");
+        #pages
+        Route::get('/','index' );
+        Route::get('/information/{id}','show')->name("seeCategory");
+        Route::get('/modifier/{id}','edit' )->name("pageEditCategory");
+        #End pages
 
+        #crud
+        Route::post('/ajouter','create') ->name("createCategory");
+        Route::post('/update','update') ->name("editCategory");
+        Route::get('/delete/{id}','destroy')->name("deleteCategory");
+        #End crud
 
+    });
 });
 
 Route::prefix('/faq')->group(function (){
-    Route::get('/',function (){
-        return view('pages.faq.index');
+    Route::controller(FaqController::class)->group(function (){
+        #pages
+        Route::get('/','index');
+        Route::get('/information/{id}','show')->name("seeFaq");
+        Route::get('/modifier/{id}','edit' )->name("pageEditFaq");
+        #End pages
+
+        #crud
+        Route::post('/ajouter','create') ->name("createFaq");
+        Route::post('/update','update') ->name("editFAq");
+        Route::get('/delete/{id}','destroy')->name("deleteFAq");
+        #End crud
     });
-    Route::get('/information/{id}', function () {
-        return view('pages.faq.information');
-    });
-    Route::get('/modifier/{id}', function () {
-        return view('pages.categorie.modifier');
-    });
+
 });
 
 Route::prefix('/blog')->group(function (){
-    Route::get('/',function (){
-        return view('pages.blog.index');
+    Route::controller(BlogController::class)->group(function (){
+        #pages
+        Route::get('/','index');
+        Route::get('/information/{id}','show')->name("seeBlog");
+        Route::get('/modifier/{id}','edit' )->name("pageEditBlog");
+        #End pages
+
+        #crud
+        Route::post('/ajouter','create') ->name("createBlog");
+        Route::post('/update','update') ->name("editBLog");
+        Route::get('/delete/{id}','destroy')->name("deleteBlog");
+        #End crud
     });
-    Route::get('/ajouter', function () {
-        return view('pages.blog.ajouter');
-    });
-    Route::get('/information/{id}', function () {
-        return view('pages.blog.information');
-    });
-    Route::get('/modifier/{id}', function () {
-        return view('pages.blog.modifier');
-    });
+
 });
+
 
 Route::prefix('/comptes')->group(function (){
     Route::get('/',function (){
