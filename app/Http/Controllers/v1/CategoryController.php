@@ -5,6 +5,7 @@ namespace App\Http\Controllers\v1;
 use App\Http\Controllers\Controller;
 use App\Models\v1\Category;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -20,13 +21,12 @@ class CategoryController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return RedirectResponse
      */
-    public function create(Request $request)
+    public function create(Request $request): RedirectResponse
     {
        $data= (new Category())->createCategory($request);
         return back();
-
     }
 
     /**
