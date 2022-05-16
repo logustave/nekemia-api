@@ -15,7 +15,9 @@ class CategoryController extends Controller
     {
         $categorie = new Category();
         $data =$categorie->getAllCategory();
-        return view('pages.categorie.index',['data'=>$data]);
+
+
+        return view('pages.categorie.index',['object'=>$data["object"]]);
     }
 
     /**
