@@ -38,7 +38,7 @@ class Faq extends Model
             if (!$validate->fails()){
                 $faq = new Faq();
                 $faq->question = $request->input('question');
-                $faq->answer = $request->input('answer') && $request->input('answer');
+                $faq->answer = $request->input('answer');
                 $faq->save();
                 return $this->responseModel(true, $faq);
             }
