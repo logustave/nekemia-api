@@ -39,9 +39,7 @@ Route::prefix('administrateur')->group(function (){
 });
 
 Route::prefix('/categorie')->group(function (){
-    Route::get('/',function (){
-        return view('pages.categorie.index');
-    });
+    Route::get('/',[ CategoryController::class,'index' ]);
     Route::get('/information/{id}', function () {
         return view('pages.categorie.information');
     });
