@@ -31,22 +31,18 @@ class Faq extends Model
     #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function createFaq(Request $request): array
     {
         try {
-            if (Validator::make($request->all(), [
-                'question' => 'required',
+            $validate = Validator::make($request->all(), [
+                'question' => 'required|unique:faqs,question',
                 'answer'=> 'required'
-            ])){
-                $question = DB::table('categories')
-                    ->where('question', $request->input('question'))
-                    ->first();
-                if ($question) return $this->responseModel(false, [], "Question { $question } already exist"); else{
-                    $faq = new Faq();
-                    $faq->question = $request->input();
-                    $faq->answer = $request->input('answer') && $request->input('answer');
-                    $faq->save();
-                    return $this->responseModel(true, $faq);
-                }
+            ]);
+            if (!$validate->fails()){
+                $faq = new Faq();
+                $faq->question = $request->input('question');
+                $faq->answer = $request->input('answer') && $request->input('answer');
+                $faq->save();
+                return $this->responseModel(true, $faq);
             }
-            return $this->responseModel(false, [], "Question & answer is required");
+            return $this->responseModel(false, [], $validate->failed());
         }catch (Exception $e){
             return $this->responseModel(false, [], $e);
         }
@@ -62,7 +58,7 @@ class Faq extends Model
             if (!$validate->fails()){
                 $faq = Faq::find($request->input('id'));
                 if (!$faq) return $this->responseModel(false, [], "Question does not exist"); else{
-                    $faq->question = $request->input();
+                    $faq->question = $request->input('question');
                     $faq->answer = $request->input('answer') && $request->input('answer');
                     $faq->save();
                     return $this->responseModel(true, $faq);

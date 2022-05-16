@@ -52,6 +52,16 @@ class Blog extends Model
         }
     }
 
+    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function getLastFiveBlog(Request $request): array
+    {
+        try {
+            $blog =  Blog::query()->latest()->take(5)->get();
+            return $this->responseModel(true, $blog);
+        }catch (Exception $e){
+            return $this->responseModel(false, [], $e);
+        }
+    }
+
     #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function getBlogBySlug($slug): array
     {
         try {
