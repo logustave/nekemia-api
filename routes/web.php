@@ -40,10 +40,11 @@ Route::prefix('administrateur')->group(function (){
     Route::put('/update/email', [AdminController::class, '']);
 });
 
-Route::prefix('/categorie')->group(function (){
+
 
     Route::controller(CategoryController::class)->group(function () {
 
+        Route::prefix('/categorie')->group(function (){
         #pages
         Route::get('/','index' );
         Route::get('/information/{id}','show')->name("seeCategory");
