@@ -16,7 +16,8 @@ class BlogController extends Controller
      */
     public function index()
     {
-        //
+        $blog = (new Blog())->getAllBlog();
+        return view('pages.blog.index',['object'=>$blog["object"],'error'=>""]);
     }
 
     /**
@@ -24,9 +25,11 @@ class BlogController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $data= (new Blog())->createBlog($request);
+        return back();
+
     }
 
     /**
@@ -46,9 +49,11 @@ class BlogController extends Controller
      * @param  \App\Models\v1\Blog  $blog
      * @return \Illuminate\Http\Response
      */
-    public function show(Blog $blog)
+    public function show($slug)
     {
-        //
+        $blog=(new Blog())->getBlogBySlug($slug);
+        return view('pages.blog.information',['id'=>$slug,"object"=>$blog['object']]);
+
     }
 
     /**
@@ -57,9 +62,10 @@ class BlogController extends Controller
      * @param  \App\Models\v1\Blog  $blog
      * @return \Illuminate\Http\Response
      */
-    public function edit(Blog $blog)
+    public function edit($slug)
     {
-        //
+        $blog=(new Blog())->getBlogBySlug($slug);
+        return view('pages.blog.modifier',['slug'=>$slug,"object"=>$blog['object']]);
     }
 
     /**
@@ -69,9 +75,10 @@ class BlogController extends Controller
      * @param  \App\Models\v1\Blog  $blog
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Blog $blog)
+    public function update(Request $request)
     {
-        //
+        (new Blog())->updateCategory($request);
+        return redirect("blog/information/$request->id");
     }
 
     /**
@@ -80,9 +87,10 @@ class BlogController extends Controller
      * @param  \App\Models\v1\Blog  $blog
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Blog $blog)
+    public function destroy($id)
     {
-        //
+        $blog=(new Blog())->deleteCategoryById($id);
+        return redirect("blog");
     }
 
     /**

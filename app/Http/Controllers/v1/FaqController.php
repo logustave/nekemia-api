@@ -17,7 +17,8 @@ class FaqController extends Controller
      */
     public function index()
     {
-        //
+        $faq = (new Faq())->getAllFaq();
+        return view('pages.faq.index',['object'=>$faq["object"],'error'=>""]);
     }
 
     /**
@@ -25,9 +26,10 @@ class FaqController extends Controller
      *
      * @return void
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $data= (new Faq())->createFaq($request);
+        return $data;
     }
 
     /**
@@ -47,9 +49,10 @@ class FaqController extends Controller
      * @param Faq $faq
      * @return Response
      */
-    public function show(Faq $faq)
+    public function show($id)
     {
-        //
+        $faq=(new faq())->getFaqById($id);
+        return view('pages.faq.information',['id'=>$id,"object"=>$faq['object']]);
     }
 
     /**
@@ -58,9 +61,10 @@ class FaqController extends Controller
      * @param Faq $faq
      * @return Response
      */
-    public function edit(Faq $faq)
+    public function edit($id)
     {
-        //
+        $faq=(new Faq())->getFaqById($id);
+        return view('pages.faq.modifier',['id'=>$id,"object"=>$id['object']]);
     }
 
     /**
@@ -70,9 +74,10 @@ class FaqController extends Controller
      * @param Faq $faq
      * @return Response
      */
-    public function update(Request $request, Faq $faq)
+    public function update(Request $request,$id)
     {
-        //
+        (new FAq())->updateFaq($request);
+        return redirect("faq/information/$request->id");
     }
 
     /**
@@ -81,9 +86,10 @@ class FaqController extends Controller
      * @param Faq $faq
      * @return Response
      */
-    public function destroy(Faq $faq)
+    public function destroy($id)
     {
-        //
+        $faq=(new Faq())->deleteFaqById($id);
+        return redirect("faq");
     }
 
 

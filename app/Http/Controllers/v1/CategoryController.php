@@ -24,7 +24,7 @@ class CategoryController extends Controller
      */
     public function create(Request $request)
     {
-        (new Category())->createCategory($request);
+       $data= (new Category())->createCategory($request);
         return back();
 
     }
@@ -75,7 +75,7 @@ class CategoryController extends Controller
     public function update(Request $request)
     {
         (new Category())->updateCategory($request);
-        return back();
+        return redirect("categorie/information/$request->id");
     }
 
     /**

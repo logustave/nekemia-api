@@ -13,17 +13,20 @@
                 </div>
                 <div class="card-body p-3 pb-0 cardBodyElement">
                     <ul class="list-group listElement">
+                        @foreach($object as $q)
+
                         <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg element">
                             <div class="d-flex flex-column">
-                                <h6 class="mb-1 text-dark font-weight-bold ">Question ?</h6>
-                                <span class="text-xs">reponse mettre un sub str apres 200 carracteres </span>
+                                <h6 class="mb-1 text-dark font-weight-bold ">{{$object['question']}}</h6>
+                                <span class="text-xs">{{$object['answer']}} </span>
                             </div>
                             <div class="d-flex align-items-center text-sm ">
-                                <small class="mx-1">01/01/2022</small>
-                                <a class="px-3 mb-0 btn btn-outline-primary" href="faq/information/1"
+                                <small class="mx-1">{date('d-m-Y',strtotime($q['created_at']))}}</small>
+                                <a class="px-3 mb-0 btn btn-outline-primary" href="{{route("seeFaq",['id'=>$q['id']])}}"
                                    type="button">Voir</a>
                             </div>
                         </li>
+                        @endforeach
 
                     </ul>
                 </div>
@@ -37,7 +40,8 @@
                 </div>
 
                 <div class="card-body">
-                    <form role="form text-left">
+                    <form role="form text-left" method="post" action="{{route("createFaq")}}">
+                        {{csrf_field()}}
                         <div class="mb-3">
                             <label>Question:</label>
 
@@ -53,7 +57,7 @@
 
 
                         <div class="text-center">
-                            <button type="button" class="btn bg-success text-white w-50 my-4 mb-2">Valider</button>
+                            <button type="submit" class="btn bg-success text-white w-50 my-4 mb-2">Valider</button>
                         </div>
                     </form>
                 </div>

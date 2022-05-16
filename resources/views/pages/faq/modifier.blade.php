@@ -8,18 +8,18 @@
                 </div>
 
                 <div class="card-body">
-                    <form role="form text-left">
+                    <form role="form text-left" method="post" action="{{route("editFaq")}}">
+                        {{csrf_field()}}
                         <div class="mb-3">
-                            <input type="text" name="question" value="faq" class="form-control" placeholder="question" aria-label="Name" aria-describedby="email-addon">
+                            <input type="text" name="{{$objet["question"]}}" value="faq" class="form-control" placeholder="question" aria-label="Name" aria-describedby="email-addon">
                         </div>
                         <div class="mb-3">
-                            <textarea name="answer"  class="form-control" placeholder="reponse" style="resize: none" rows="5">reponse</textarea>
+                            <textarea name="{{$objet["answer"]}}"  class="form-control" placeholder="reponse" style="resize: none" rows="5">reponse</textarea>
                         </div>
-
 
                         <div class="row text-center">
                             <div class="text-center col-md-6">
-                                <a type="button" href="/faq/modifier/1" class="btn bg-success text-white">Modifier</a>
+                                <button type="submit"  class="btn bg-success text-white">Modifier</button>
                             </div>
 
                             <div class="text-center col-md-5">
