@@ -43,7 +43,7 @@
                                     "contact": {
                                         "type": "string"
                                     },
-                                    "subject": {
+                                    "object": {
                                         "type": "string"
                                     },
                                     "message": {

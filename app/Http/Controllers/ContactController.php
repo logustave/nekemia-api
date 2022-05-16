@@ -99,7 +99,7 @@ class ContactController extends Controller
      *             @OA\Property(property="full_name", type="string"),
      *             @OA\Property(property="email", type="string"),
      *             @OA\Property(property="contact", type="string"),
-     *             @OA\Property(property="subject", type="string"),
+     *             @OA\Property(property="object", type="string"),
      *             @OA\Property(property="message", type="string")
      *          ),
      *      ),

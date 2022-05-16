@@ -11,11 +11,17 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('contacts', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->string('full_name', 30);
+            $table->string('email', 30);
+            $table->string('contact', 30);
+            $table->string('object', 30);
+            $table->text('message');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -24,7 +30,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('contacts');
     }

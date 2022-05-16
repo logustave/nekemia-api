@@ -12,7 +12,7 @@ use JetBrains\PhpStorm\ArrayShape;
 /**
  * @property mixed $full_name
  * @property mixed $email
- * @property mixed $author_number
+ * @property mixed $contact
  * @property mixed $object
  * @property mixed $message
  * @method static paginate(int $int)
@@ -34,23 +34,24 @@ class Contact extends Model
     #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function createMessage(Request $request): array
     {
         try {
+
             $validate = Validator::make($request->all(), [
                 'full_name' => 'required',
                 'email' => 'required',
-                'author_number' => 'required',
+                'contact' => 'required',
                 'object' => 'required',
                 'message' => 'required'
             ]);
-            if ($validate->fails()){
+            if (!$validate->fails()){
                 $contact = new Contact;
                 $full_name = $request->input('full_name');
                 $email = $request->input('email');
-                $author_number = $request->input('author_number');
+                $author_number = $request->input('contact');
                 $object = $request->input('object');
                 $message = $request->input('message');
                 $contact->full_name = $full_name;
                 $contact->email = $email;
-                $contact->author_number = $author_number;
+                $contact->contact = $author_number;
                 $contact->object = $object;
                 $contact->message = $message;
                 $contact->save();
