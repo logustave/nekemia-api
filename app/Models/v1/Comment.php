@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 
 /**
  * @property mixed $blog_id
- * @property mixed $comment
+ * @property mixed $content
  * @property mixed $full_name
  * @property mixed|null $contact
  * @method static paginate()
@@ -36,20 +36,18 @@ class Comment extends Model
             $validator = Validator::make($request->all(), [
                 'blog_id' => 'required',
                 'full_name' => 'required',
-                'comment' => 'required'
+                'content' => 'required'
             ]);
             if (!$validator->fails()){
                 $blog_id = $request->input('blog_id');
                 $full_name = $request->input('full_name');
-                $comment_user = $request->input('comment');
-                $contact = $request->input('contact') ? $request->input('contact') : null;
+                $content = $request->input('content');
                 $comment = new Comment();
                 $comment->blog_id = $blog_id;
                 $comment->full_name = $full_name;
-                $comment->comment = $comment_user;
-                $comment->contact = $contact;
+                $comment->content = $content;
                 $comment->save();
-                return $this->responseModel(true, $this->getAllBlogComment($blog_id));
+                return $this->getAllBlogComment($blog_id);
             }
             return $this->responseModel(false, [], $validator->failed());
         }catch (Exception $e){
@@ -60,7 +58,7 @@ class Comment extends Model
     #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function getAllBlogComment($id): array
     {
         try {
-            return $this->responseModel(true, Comment::find($id));
+            return $this->responseModel(true, Comment::query()->where('blog_id', $id)->get());
         }catch (Exception $e){
             return $this->responseModel(false, [], $e);
         }

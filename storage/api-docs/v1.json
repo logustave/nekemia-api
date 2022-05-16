@@ -1,7 +1,7 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "Documentation des APIs de Nekiema APIs",
+        "title": "Documentation des APIs de Nekiema BTP",
         "description": "Implementation avec Swagger par Asher Services",
         "contact": {
             "email": "mianahissan@protonmail.com"
@@ -26,7 +26,7 @@
                 ],
                 "summary": "GET ALL BLOG",
                 "description": "GET ALL BLOG",
-                "operationId": "getAllFaqBlogAPI",
+                "operationId": "getAllBlogAPI",
                 "requestBody": {
                     "description": "Transmettre les informations",
                     "required": false,
@@ -188,6 +188,206 @@
                                                                 },
                                                                 "content": {
                                                                     "type": "string"
+                                                                },
+                                                                "created_at": {
+                                                                    "type": "string"
+                                                                },
+                                                                "update_at": {
+                                                                    "type": "string"
+                                                                },
+                                                                "delete_at": {
+                                                                    "type": "string"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        }
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "error": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Non authentifié"
+                    },
+                    "403": {
+                        "description": "Interdit"
+                    },
+                    "400": {
+                        "description": "Mauvaise demande"
+                    },
+                    "404": {
+                        "description": "pas trouvé"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/v1/comment/{id}": {
+            "get": {
+                "tags": [
+                    "BLOG"
+                ],
+                "summary": "GET ALL BLOG COMMENT",
+                "description": "GET ALL BLOG COMMENT",
+                "operationId": "getAllBlogCommentAPI",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Opération éffectuée",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean"
+                                        },
+                                        "object": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "data": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "properties": {
+                                                                "id": {
+                                                                    "type": "integer"
+                                                                },
+                                                                "blog_id": {
+                                                                    "type": "string"
+                                                                },
+                                                                "full_name": {
+                                                                    "type": "string"
+                                                                },
+                                                                "content": {
+                                                                    "type": "integer"
+                                                                },
+                                                                "created_at": {
+                                                                    "type": "string"
+                                                                },
+                                                                "update_at": {
+                                                                    "type": "string"
+                                                                },
+                                                                "delete_at": {
+                                                                    "type": "string"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        }
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "error": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Non authentifié"
+                    },
+                    "403": {
+                        "description": "Interdit"
+                    },
+                    "400": {
+                        "description": "Mauvaise demande"
+                    },
+                    "404": {
+                        "description": "pas trouvé"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/v1/comment": {
+            "post": {
+                "tags": [
+                    "BLOG"
+                ],
+                "summary": "CREATE BLOG COMMENT",
+                "description": "CREATE ALL BLOG COMMENT",
+                "operationId": "createBlogCommentAPI",
+                "requestBody": {
+                    "description": "Transmettre les informations",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "blog_id": {
+                                        "type": "string"
+                                    },
+                                    "full_name": {
+                                        "type": "string"
+                                    },
+                                    "content": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Opération éffectuée",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean"
+                                        },
+                                        "object": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "data": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "properties": {
+                                                                "id": {
+                                                                    "type": "integer"
+                                                                },
+                                                                "blog_id": {
+                                                                    "type": "string"
+                                                                },
+                                                                "full_name": {
+                                                                    "type": "string"
+                                                                },
+                                                                "content": {
+                                                                    "type": "integer"
                                                                 },
                                                                 "created_at": {
                                                                     "type": "string"

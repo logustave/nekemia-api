@@ -93,7 +93,7 @@ class BlogController extends Controller
     /**
      * @OA\Post (
      *      path="/v1/blog?page={page}",
-     *      operationId="getAllFaqBlogAPI",
+     *      operationId="getAllBlogAPI",
      *      tags={"BLOG"},
      *      summary="GET ALL BLOG",
      *      description="GET ALL BLOG",
@@ -153,7 +153,7 @@ class BlogController extends Controller
      *   ),
      *  )
      */
-    public function getAllBlog(Request $request): JsonResponse
+    public function getAllBlogAPI(Request $request): JsonResponse
     {
         $blog = (new Blog)->getAllBlog($request);
         return response()->json(
