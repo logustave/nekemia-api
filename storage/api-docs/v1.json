@@ -19,7 +19,7 @@
         }
     ],
     "paths": {
-        "/v1/blog?page={id}": {
+        "/v1/blog?page={page}": {
             "post": {
                 "tags": [
                     "BLOG"
@@ -130,7 +130,7 @@
                 ]
             }
         },
-        "/v1/blog/{id}": {
+        "/v1/blog/{slug}": {
             "get": {
                 "tags": [
                     "BLOG"
@@ -298,7 +298,7 @@
                 ]
             }
         },
-        "/v1/faq?page={id}": {
+        "/v1/faq?page={page}": {
             "get": {
                 "tags": [
                     "FAQ"

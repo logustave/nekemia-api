@@ -87,7 +87,7 @@ class BlogController extends Controller
 
     /**
      * @OA\Post (
-     *      path="/v1/blog?page={id}",
+     *      path="/v1/blog?page={page}",
      *      operationId="getAllFaqBlogAPI",
      *      tags={"BLOG"},
      *      summary="GET ALL BLOG",
@@ -162,7 +162,7 @@ class BlogController extends Controller
 
     /**
      * @OA\Get(
-     *      path="/v1/blog/{id}",
+     *      path="/v1/blog/{slug}",
      *      operationId="getBlogBySlugdAPI",
      *      tags={"BLOG"},
      *      summary="GET BLOG BY SLUG",

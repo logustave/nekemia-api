@@ -90,7 +90,7 @@ class FaqController extends Controller
 
     /**
      * @OA\Get(
-     *      path="/v1/faq?page={id}",
+     *      path="/v1/faq?page={page}",
      *      operationId="getAllFaqAPI",
      *      tags={"FAQ"},
      *      summary="GET FAQ",
