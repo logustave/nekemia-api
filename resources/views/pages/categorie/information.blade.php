@@ -11,20 +11,20 @@
                 <div class="card-body">
                     <div class="mb-3">
                         <label>Label:</label>
-                        Nom
+                    {{$object['label']}}
                     </div>
                     <div class="mb-3">
                         <label>Description:</label>
-                        Nom
+                        {{$object['description']}}
                     </div>
 
                     <div class="row text-center">
                         <div class="text-center col-md-6">
-                            <a type="button" href="/categorie/modifier/1" class="btn bg-success text-white">Modifier</a>
+                            <a type="button" href="{{route("pageEditCategory",['id'=>$object['id']])}}" class="btn bg-success text-white">Modifier</a>
                         </div>
 
                         <div class="text-center col-md-5">
-                            <a  href="#" type="button" class="btn bg-gradient-danger ">Supprimer</a>
+                            <a  href="{{route("deleteCategory",['id'=>$object['id']])}}" type="button" class="btn bg-gradient-danger ">Supprimer</a>
                         </div>
                     </div>
                 </div>

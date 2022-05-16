@@ -8,21 +8,21 @@
                 </div>
 
                 <div class="card-body">
-                    <form role="form text-left">
+                    <form role="form text-left" method="post" action="{{route("editCategory")}}">
+                        {{csrf_field()}}
                         <div class="mb-3">
                             <label>Nom:</label>
-                            <input type="text" name="label" value="categorie" class="form-control" placeholder="label" aria-label="Name" aria-describedby="email-addon">
+                            <input type="text" name="label" value="{{$object['label']}}" class="form-control" placeholder="label" aria-label="Name" aria-describedby="email-addon">
                         </div>
                         <div class="mb-3">
                             <label>Description:</label>
-
-                            <textarea name="description"  class="form-control" placeholder="Description" style="resize: none" rows="5">lorem ipsum</textarea>
+                            <textarea name="description"  class="form-control" placeholder="Description" style="resize: none" rows="5">{{$object['description']}}</textarea>
                         </div>
-
+                        <input type="hidden" name="id" value="{{$object['id']}}" class="form-control" placeholder="label" aria-label="Name" aria-describedby="email-addon">
 
                         <div class="row text-center">
                             <div class="text-center col-md-6">
-                                <a type="button" href="/categorie/modifier/1" class="btn bg-success text-white">Modifier</a>
+                                <button type="submit"  class="btn bg-success text-white">Modifier</button>
                             </div>
 
                             <div class="text-center col-md-5">
