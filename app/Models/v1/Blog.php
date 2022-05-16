@@ -19,6 +19,7 @@ use JetBrains\PhpStorm\ArrayShape;
  * @property mixed $title
  * @property mixed $content
  * @property array|mixed|string|string[] $slug
+ * @property mixed|string $cover_path
  */
 class Blog extends Model
 {
@@ -86,7 +87,7 @@ class Blog extends Model
                 $blog->category_id = $category_id;
                 $blog->slug = $slug;
                 $blog->admin_id = $creator_id;
-                $blog->$cover_path = $cover_path;
+                $blog->cover_path = $cover_path;
                 $blog->title = $title;
                 $blog->content = $content;
                 $blog->save();
