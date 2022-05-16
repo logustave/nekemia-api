@@ -73,7 +73,7 @@ class Category extends Model
     #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function getAllCategory(): array
     {
         try {
-            return $this->responseModel(true, Category::paginate(10));
+            return $this->responseModel(true, Category::paginate(5));
         }catch (Exception $e){
             return $this->responseModel(false, [], $e);
         }
