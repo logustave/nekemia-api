@@ -79,6 +79,15 @@ class Category extends Model
         }
     }
 
+    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function getAllCategoryWithoutPagination(): array
+    {
+        try {
+            return $this->responseModel(true, Category::All());
+        }catch (Exception $e){
+            return $this->responseModel(false, [], $e);
+        }
+    }
+
     #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function getCategoryById($id): array
     {
         try {
