@@ -59,7 +59,7 @@ class Faq extends Model
                 $faq = Faq::find($request->input('id'));
                 if (!$faq) return $this->responseModel(false, [], "Question does not exist"); else{
                     $faq->question = $request->input('question');
-                    $faq->answer = $request->input('answer') && $request->input('answer');
+                    $faq->answer = $request->input('answer');
                     $faq->save();
                     return $this->responseModel(true, $faq);
                 }
