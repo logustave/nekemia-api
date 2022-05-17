@@ -40,6 +40,12 @@ class Blog extends Model
             $search = $request->input('search') ? $request->input('search') : null;
             if ($search){
                 $blog =  Blog::query()
+                    ->join('categories', function($join){
+                        $join->on('blogs.category_id', '=', 'categories.id');
+                    })
+                    ->join('admins', function ($join){
+                        $join->on('blogs.admin_id', '=', 'admins.id');
+                    })
                     ->where('title', 'LIKE', "%$search%")
                     ->orWhere('content', 'LIKE', "%$search%")
                     ->paginate(10);
@@ -65,7 +71,13 @@ class Blog extends Model
     #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function getBlogBySlug($slug): array
     {
         try {
-            $blog = Blog::query()->where('slug', $slug)->first();
+            $blog = Blog::query()
+                ->join('categories', function($join){
+                    $join->on('blogs.category_id', '=', 'categories.id');
+                })
+                ->join('admins', function ($join){
+                    $join->on('blogs.admin_id', '=', 'admins.id');
+                })->where('slug', $slug)->first();
             if ($blog)
                 return $this->responseModel(true, $blog);
             return $this->responseModel(false, [], 'blog not found');
@@ -87,7 +99,7 @@ class Blog extends Model
             if (!$validator->fails()){
                 $file = $request->file('cover_path');
                 $file_extension = $file->getClientOriginalExtension();
-                $file_name = Str::uuid().$file_extension;
+                $file_name = Str::uuid().".".$file_extension;
                 Storage::disk('blog')->put($file_name, $file->getContent());
                 $cover_path = asset("blog/$file_name", true);
                 $creator_id = $request->input('creator_id');
@@ -130,7 +142,7 @@ class Blog extends Model
                 if ($request->file('cover_path')){
                     $file = $request->file('cover_path');
                     $file_extension = $file->getClientOriginalExtension();
-                    $file_name = Str::uuid().$file_extension;
+                    $file_name = Str::uuid().'.'.$file_extension;
                     Storage::disk('blog')->put($file_name, $file->getContent());
                     $cover_path = asset("blog/$file_name", true);
                     $blog->$cover_path = $cover_path;
