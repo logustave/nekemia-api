@@ -5,7 +5,6 @@ namespace App\Models\v1;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
-use JetBrains\PhpStorm\ArrayShape;
 use Exception;
 use Illuminate\Http\Request;
 

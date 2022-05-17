@@ -6,9 +6,7 @@ use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-use JetBrains\PhpStorm\ArrayShape;
 
 /**
  * @method static find($id)
@@ -57,14 +55,16 @@ class Faq extends Model
             ]);
             if (!$validate->fails()){
                 $faq = Faq::find($request->input('id'));
-                if (!$faq) return $this->responseModel(false, [], "Question does not exist"); else{
+                if (!$faq) {
+                    $result =  $this->responseModel(false, [], "Question does not exist");
+                } else{
                     $faq->question = $request->input('question');
                     $faq->answer = $request->input('answer');
                     $faq->save();
-                    return $this->responseModel(true, $faq);
+                    $result = $this->responseModel(true, $faq);
                 }
             }
-            return $this->responseModel(false, [], $validate->failed());
+            return $this->responseModel(false, [], $result ?? $validate->failed());
         }catch (Exception $e){
             return $this->responseModel(false, [], $e);
         }

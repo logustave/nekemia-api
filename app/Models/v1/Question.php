@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use JetBrains\PhpStorm\ArrayShape;
 
 /**
  * @method static paginate(int $int)

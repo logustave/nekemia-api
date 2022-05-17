@@ -57,7 +57,7 @@ class Blog extends Model
         }
     }
 
-    public function getLastFiveBlog(Request $request): array
+    public function getLastFiveBlog(): array
     {
         try {
             $blog =  Blog::query()->latest()->take(5)->get();
@@ -77,8 +77,9 @@ class Blog extends Model
                 ->join('admins', function ($join){
                     $join->on('blogs.admin_id', '=', 'admins.id');
                 })->where('slug', $slug)->first();
-            if ($blog)
+            if ($blog) {
                 return $this->responseModel(true, $blog);
+            }
             return $this->responseModel(false, [], 'blog not found');
         }catch (Exception $e){
             return $this->responseModel(false, [], $e);

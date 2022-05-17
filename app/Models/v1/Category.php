@@ -6,9 +6,7 @@ use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-use JetBrains\PhpStorm\ArrayShape;
 
 /**
  * @property mixed $label
@@ -57,12 +55,15 @@ class Category extends Model
             ]);
             if (!$validate->fails()){
                 $category = Category::find($request->input('id'));
-                if (!$category) return $this->responseModel(false, [], "category does not exist"); else{
+                if (!$category) {
+                    $result = $this->responseModel(false, [], "category does not exist");
+                } else{
                     $category->label = $request->input('label');
                     $category->description = $request->input('description');
                     $category->save();
-                    return $this->responseModel(true, $category);
+                    $result =  $this->responseModel(true, $category);
                 }
+                return $this->responseModel(false, [], $result);
             }
             return $this->responseModel(false, [], $validate->failed());
         }catch (Exception $e){
