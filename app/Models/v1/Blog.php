@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
-use JetBrains\PhpStorm\ArrayShape;
 
 /**
  * @method static paginate(int $int)
@@ -25,7 +24,7 @@ class Blog extends Model
 {
     use HasFactory;
 
-    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] private function responseModel($status = false, $object = [], $error = null): array
+    private function responseModel($status = false, $object = [], $error = null): array
     {
         return [
             'status' => $status,
@@ -34,7 +33,7 @@ class Blog extends Model
         ];
     }
 
-    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function getAllBlog(Request $request): array
+    public function getAllBlog(Request $request): array
     {
         try {
             $search = $request->input('search') ? $request->input('search') : null;
@@ -58,7 +57,7 @@ class Blog extends Model
         }
     }
 
-    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function getLastFiveBlog(Request $request): array
+    public function getLastFiveBlog(Request $request): array
     {
         try {
             $blog =  Blog::query()->latest()->take(5)->get();
@@ -68,7 +67,7 @@ class Blog extends Model
         }
     }
 
-    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function getBlogBySlug($slug): array
+    public function getBlogBySlug($slug): array
     {
         try {
             $blog = Blog::query()
@@ -86,7 +85,7 @@ class Blog extends Model
         }
     }
 
-    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function createBlog(Request $request): array
+    public function createBlog(Request $request): array
     {
         try {
             $validator = Validator::make($request->all(), [
@@ -123,7 +122,7 @@ class Blog extends Model
         }
     }
 
-    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function updateBlogById(Request $request): array
+    public function updateBlogById(Request $request): array
     {
         try {
             $validator = Validator::make($request->all(), [
@@ -160,7 +159,7 @@ class Blog extends Model
         }
     }
 
-    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function deleteBlogById($id): array
+    public function deleteBlogById($id): array
     {
         try {
             return $this->responseModel(true, Blog::find($id)->delete());

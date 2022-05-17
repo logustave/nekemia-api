@@ -21,7 +21,7 @@ class Comment extends Model
 {
     use HasFactory;
 
-    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] private function responseModel($status = false, $object = [], $error = null): array
+    private function responseModel($status = false, $object = [], $error = null): array
     {
         return [
             'status' => $status,
@@ -30,7 +30,7 @@ class Comment extends Model
         ];
     }
 
-    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function createBlogComment(Request $request): array
+    public function createBlogComment(Request $request): array
     {
         try {
             $validator = Validator::make($request->all(), [
@@ -55,7 +55,7 @@ class Comment extends Model
         }
     }
 
-    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function getAllBlogComment($id): array
+    public function getAllBlogComment($id): array
     {
         try {
             return $this->responseModel(true, Comment::query()->where('blog_id', $id)->get());

@@ -31,7 +31,7 @@ class Admin extends Model
 {
     use HasFactory;
 
-    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] private function responseModel($status = false, $object = [], $error = null): array
+    private function responseModel($status = false, $object = [], $error = null): array
     {
         return [
             'status' => $status,
@@ -59,7 +59,7 @@ class Admin extends Model
         return false;
     }
 
-    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function getAllAdmin(): array
+    public function getAllAdmin(): array
     {
         try {
             return $this->responseModel(true, Admin::paginate(10));
@@ -68,7 +68,7 @@ class Admin extends Model
         }
     }
 
-    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function getAdminById($id): array
+    public function getAdminById($id): array
     {
         try {
             return $this->responseModel(true, Admin::find($id));
@@ -77,7 +77,7 @@ class Admin extends Model
         }
     }
 
-    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function createAdmin(Request $request): array
+    public function createAdmin(Request $request): array
     {
         try {
             $validator = Validator::make($request->all(), [
@@ -122,7 +122,7 @@ class Admin extends Model
         }
     }
 
-    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function updateAdminDetails(Request $request): array{
+    public function updateAdminDetails(Request $request): array{
         try {
             $validator = Validator::make($request->all(), [
                 'id' => 'required',
@@ -145,7 +145,7 @@ class Admin extends Model
         }
     }
 
-    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function updateEmail(Request $request): array
+    public function updateEmail(Request $request): array
     {
         try {
             $validator = Validator::make($request->all(), [
@@ -174,7 +174,7 @@ class Admin extends Model
         }
     }
 
-    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function updateAdminPassword(Request $request): array
+    public function updateAdminPassword(Request $request): array
     {
         try {
             $validator = Validator::make($request->all(), [

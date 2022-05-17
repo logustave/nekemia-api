@@ -19,7 +19,7 @@ use JetBrains\PhpStorm\ArrayShape;
 class Faq extends Model
 {
     use HasFactory;
-    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] private function responseModel($status = false, $object = [], $error = null): array
+    private function responseModel($status = false, $object = [], $error = null): array
     {
         return [
             'status' => $status,
@@ -28,7 +28,7 @@ class Faq extends Model
         ];
     }
 
-    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function createFaq(Request $request): array
+    public function createFaq(Request $request): array
     {
         try {
             $validate = Validator::make($request->all(), [
@@ -48,7 +48,7 @@ class Faq extends Model
         }
     }
 
-    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function updateFaq(Request $request): array
+    public function updateFaq(Request $request): array
     {
         try {
             $validate = Validator::make($request->all(), [
@@ -70,7 +70,7 @@ class Faq extends Model
         }
     }
 
-    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function getAllFaq(): array
+    public function getAllFaq(): array
     {
         try {
             return $this->responseModel(true, Faq::paginate(10));
@@ -79,7 +79,7 @@ class Faq extends Model
         }
     }
 
-    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function getFaqById($id): array
+    public function getFaqById($id): array
     {
         try {
             $faq = Faq::find($id);
@@ -92,7 +92,7 @@ class Faq extends Model
         }
     }
 
-    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function deleteFaqById($id): array
+    public function deleteFaqById($id): array
     {
         try {
             return $this->responseModel(true, Faq::find($id)->delete());

@@ -20,7 +20,7 @@ class Category extends Model
 {
     use HasFactory;
 
-    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] private function responseModel($status = false, $object = [], $error = null): array
+    private function responseModel($status = false, $object = [], $error = null): array
     {
         return [
             'status' => $status,
@@ -29,7 +29,7 @@ class Category extends Model
         ];
     }
 
-    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function createCategory(Request $request): array
+    public function createCategory(Request $request): array
     {
         try {
             $validate = Validator::make($request->all(), [
@@ -48,7 +48,7 @@ class Category extends Model
         }
     }
 
-    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function updateCategory(Request $request): array
+    public function updateCategory(Request $request): array
     {
         try {
             $validate = Validator::make($request->all(), [
@@ -70,7 +70,7 @@ class Category extends Model
         }
     }
 
-    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function getAllCategory(): array
+    public function getAllCategory(): array
     {
         try {
             return $this->responseModel(true, Category::paginate(5));
@@ -79,7 +79,7 @@ class Category extends Model
         }
     }
 
-    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function getAllCategoryWithoutPagination(): array
+    public function getAllCategoryWithoutPagination(): array
     {
         try {
             return $this->responseModel(true, Category::All());
@@ -88,7 +88,7 @@ class Category extends Model
         }
     }
 
-    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function getCategoryById($id): array
+    public function getCategoryById($id): array
     {
         try {
             return $this->responseModel(true, Category::find($id));
@@ -97,7 +97,7 @@ class Category extends Model
         }
     }
 
-    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function deleteCategoryById($id): array
+    public function deleteCategoryById($id): array
     {
         try {
             return $this->responseModel(true, Category::find($id)->delete());

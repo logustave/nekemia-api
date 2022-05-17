@@ -22,7 +22,7 @@ class Contact extends Model
 {
     use HasFactory;
 
-    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] private function responseModel($status = false, $object = [], $error = null): array
+    private function responseModel($status = false, $object = [], $error = null): array
     {
         return [
             'status' => $status,
@@ -31,7 +31,7 @@ class Contact extends Model
         ];
     }
 
-    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function createMessage(Request $request): array
+    public function createMessage(Request $request): array
     {
         try {
 
@@ -63,7 +63,7 @@ class Contact extends Model
         }
     }
 
-    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function getAllMessage(): array
+    public function getAllMessage(): array
     {
         try {
             return $this->responseModel(true, Contact::paginate(10));
@@ -72,7 +72,7 @@ class Contact extends Model
         }
     }
 
-    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function getMessageById($id): array
+    public function getMessageById($id): array
     {
         try {
             return $this->responseModel(true, Contact::find($id));
