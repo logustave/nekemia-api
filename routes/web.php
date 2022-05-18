@@ -28,23 +28,41 @@ Route::prefix("/")->group(function (){
     })->name('acceuil');
 });
 
-Route::get('/verified-email/{id}/{token}', [AdminController::class, 'verifiedAdminEmail'])->name('verified-email');
+//Route::get('/',[FaqController::class,'index'])->middleware('isConnected')->name('acceuil');
 
-Route::prefix('administrateur')->group(function (){
-    Route::get('/', [AdminController::class, '']);
-    Route::get('{id}', [AdminController::class, '']);
-    Route::post('/', [AdminController::class, '']);
-    Route::get('/update', [AdminController::class, '']);
-    Route::put('/update/details', [AdminController::class, '']);
-    Route::put('/update/password', [AdminController::class, '']);
-    Route::put('/update/email', [AdminController::class, '']);
+Route::get('/verified-email/{id}/{token}', [AdminController::class, 'verifiedAdminEmail'])->name('verified-email');
+Route::get("login",function (){
+   return view("login");
 });
 
 
+//Route::group(['middleware' => 'isConnected'], static function () {
+//
+//
+//});
 
-    Route::controller(CategoryController::class)->group(function () {
 
-        Route::prefix('/categorie')->group(function (){
+Route::controller(AdminController::class)->group(function (){
+    Route::prefix('/comptes')->group(function (){
+
+        Route::get('/', 'index');
+        Route::get('information/{id}',  'show')->name("seeAdmin");
+        Route::get('/modifier/{id}','edit')->name("pageEditCompte");
+        Route::get('/ajouter','store') ->name("pageAddCompte");
+
+        Route::get('/connect','store') ->name("loginCompte");
+
+
+        Route::post('/update', 'update')->name("editAdmin");
+        Route::post('/add','create') ->name("createCompte");
+        Route::put('/update/password', '');
+        Route::put('/update/email', '');
+    });
+});
+
+Route::controller(CategoryController::class)->group(function () {
+
+    Route::prefix('/categorie')->group(function (){
         #pages
         Route::get('/','index' );
         Route::get('/information/{id}','show')->name("seeCategory");
@@ -70,8 +88,8 @@ Route::prefix('/faq')->group(function (){
 
         #crud
         Route::post('/ajouter','create') ->name("createFaq");
-        Route::post('/update','update') ->name("editFAq");
-        Route::get('/delete/{id}','destroy')->name("deleteFAq");
+        Route::post('/update','update') ->name("editFaq");
+        Route::get('/delete/{id}','destroy')->name("deleteFaq");
         #End crud
     });
 
@@ -81,26 +99,20 @@ Route::prefix('/blog')->group(function (){
     Route::controller(BlogController::class)->group(function (){
         #pages
         Route::get('/','index');
-        Route::get('/information/{id}','show')->name("seeBlog");
-        Route::get('/modifier/{id}','edit' )->name("pageEditBlog");
+        Route::get('/information/{slug}','show')->name("seeBlog");
+        Route::get('/modifier/{slug}','edit' )->name("pageEditBlog");
+        Route::get('/ajouter','store') ->name("pageAddBlog");
+
         #End pages
 
         #crud
-        Route::post('/ajouter','create') ->name("createBlog");
+        Route::post('/add','create') ->name("createBlog");
         Route::post('/update','update') ->name("editBLog");
         Route::get('/delete/{id}','destroy')->name("deleteBlog");
         #End crud
     });
 
 });
-
-
-Route::prefix('/comptes')->group(function (){
-    Route::get('/',function (){
-        return view('pages.comptes.index');
-    });
-});
-
 
 Route::prefix('/profile')->group(function (){
     Route::get('/',function (){
@@ -110,3 +122,4 @@ Route::prefix('/profile')->group(function (){
         return view('pages.profile.modifier');
     });
 });
+

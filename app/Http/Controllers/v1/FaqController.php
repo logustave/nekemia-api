@@ -29,7 +29,7 @@ class FaqController extends Controller
     public function create(Request $request)
     {
         $data= (new Faq())->createFaq($request);
-        return $data;
+        return back();
     }
 
     /**
@@ -64,19 +64,15 @@ class FaqController extends Controller
     public function edit($id)
     {
         $faq=(new Faq())->getFaqById($id);
-        return view('pages.faq.modifier',['id'=>$id,"object"=>$id['object']]);
+        return view('pages.faq.modifier',['id'=>$id,"object"=>$faq['object']]);
     }
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param Faq $faq
-     * @return Response
      */
-    public function update(Request $request,$id)
+    public function update(Request $request)
     {
-        (new FAq())->updateFaq($request);
+        (new Faq())->updateFaq($request);
         return redirect("faq/information/$request->id");
     }
 

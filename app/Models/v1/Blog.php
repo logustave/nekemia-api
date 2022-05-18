@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use JetBrains\PhpStorm\ArrayShape;
 
 /**
  * @method static paginate(int $int)
@@ -24,7 +25,7 @@ class Blog extends Model
 {
     use HasFactory;
 
-    private function responseModel($status = false, $object = [], $error = null): array
+    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] private function responseModel($status = false, $object = [], $error = null): array
     {
         return [
             'status' => $status,
@@ -33,18 +34,12 @@ class Blog extends Model
         ];
     }
 
-    public function getAllBlog(Request $request): array
+    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function getAllBlog(Request $request): array
     {
         try {
             $search = $request->input('search') ? $request->input('search') : null;
             if ($search){
                 $blog =  Blog::query()
-                    ->join('categories', function($join){
-                        $join->on('blogs.category_id', '=', 'categories.id');
-                    })
-                    ->join('admins', function ($join){
-                        $join->on('blogs.admin_id', '=', 'admins.id');
-                    })
                     ->where('title', 'LIKE', "%$search%")
                     ->orWhere('content', 'LIKE', "%$search%")
                     ->paginate(10);
@@ -57,7 +52,7 @@ class Blog extends Model
         }
     }
 
-    public function getLastFiveBlog(): array
+    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function getLastFiveBlog(Request $request): array
     {
         try {
             $blog =  Blog::query()->latest()->take(5)->get();
@@ -67,26 +62,19 @@ class Blog extends Model
         }
     }
 
-    public function getBlogBySlug($slug): array
+    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function getBlogBySlug($slug): array
     {
         try {
-            $blog = Blog::query()
-                ->join('categories', function($join){
-                    $join->on('blogs.category_id', '=', 'categories.id');
-                })
-                ->join('admins', function ($join){
-                    $join->on('blogs.admin_id', '=', 'admins.id');
-                })->where('slug', $slug)->first();
-            if ($blog) {
+            $blog = Blog::query()->where('slug', $slug)->first();
+            if ($blog)
                 return $this->responseModel(true, $blog);
-            }
             return $this->responseModel(false, [], 'blog not found');
         }catch (Exception $e){
             return $this->responseModel(false, [], $e);
         }
     }
 
-    public function createBlog(Request $request): array
+    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function createBlog(Request $request): array
     {
         try {
             $validator = Validator::make($request->all(), [
@@ -99,7 +87,7 @@ class Blog extends Model
             if (!$validator->fails()){
                 $file = $request->file('cover_path');
                 $file_extension = $file->getClientOriginalExtension();
-                $file_name = Str::uuid().".".$file_extension;
+                $file_name = Str::uuid().$file_extension;
                 Storage::disk('blog')->put($file_name, $file->getContent());
                 $cover_path = asset("blog/$file_name", true);
                 $creator_id = $request->input('creator_id');
@@ -123,7 +111,7 @@ class Blog extends Model
         }
     }
 
-    public function updateBlogById(Request $request): array
+    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function updateBlogById(Request $request): array
     {
         try {
             $validator = Validator::make($request->all(), [
@@ -142,7 +130,7 @@ class Blog extends Model
                 if ($request->file('cover_path')){
                     $file = $request->file('cover_path');
                     $file_extension = $file->getClientOriginalExtension();
-                    $file_name = Str::uuid().'.'.$file_extension;
+                    $file_name = Str::uuid().$file_extension;
                     Storage::disk('blog')->put($file_name, $file->getContent());
                     $cover_path = asset("blog/$file_name", true);
                     $blog->$cover_path = $cover_path;
@@ -160,7 +148,7 @@ class Blog extends Model
         }
     }
 
-    public function deleteBlogById($id): array
+    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function deleteBlogById($id): array
     {
         try {
             return $this->responseModel(true, Blog::find($id)->delete());

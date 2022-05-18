@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use JetBrains\PhpStorm\ArrayShape;
 
 /**
  * @property mixed $full_name
@@ -21,7 +22,7 @@ class Contact extends Model
 {
     use HasFactory;
 
-    private function responseModel($status = false, $object = [], $error = null): array
+    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] private function responseModel($status = false, $object = [], $error = null): array
     {
         return [
             'status' => $status,
@@ -30,7 +31,7 @@ class Contact extends Model
         ];
     }
 
-    public function createMessage(Request $request): array
+    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function createMessage(Request $request): array
     {
         try {
 
@@ -62,7 +63,7 @@ class Contact extends Model
         }
     }
 
-    public function getAllMessage(): array
+    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function getAllMessage(): array
     {
         try {
             return $this->responseModel(true, Contact::paginate(10));
@@ -71,7 +72,7 @@ class Contact extends Model
         }
     }
 
-    public function getMessageById($id): array
+    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function getMessageById($id): array
     {
         try {
             return $this->responseModel(true, Contact::find($id));

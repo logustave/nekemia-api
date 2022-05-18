@@ -8,12 +8,12 @@ use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use JetBrains\PhpStorm\ArrayShape;
 use Illuminate\Validation\Rules\Password as Pw;
 
 /**
@@ -31,92 +31,13 @@ class Admin extends Model
 {
     use HasFactory;
 
-    private function responseModel($status = false, $object = [], $error = null): array
+    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] private function responseModel($status = false, $object = [], $error = null): array
     {
         return [
             'status' => $status,
             'object' => $object,
             'error' => $error
         ];
-    }
-
-    public function authAdmin(Request $request): array {
-        try {
-            $validator = Validator::make($request->all(), [
-                'username' => 'required',
-                'password' => 'required'
-            ]);
-            if (!$validator->fails()){
-                $username = $request->input('username');
-                $password = $request->input('password');
-                $auth = Admin::query()
-                    ->where('email', $username)
-                    ->orWhere('pseudo', $username)
-                    ->orWhere('contact', $username)
-                    ->first();
-                if (isset($auth->password) && Hash::check($password, $auth->password)){
-                    if ($auth->email_verified_at){
-                        $time = 60 * 24 * 7 * 30;
-                        Cookie::queue('isConnected', true, $time);
-                        Cookie::queue('user_id', Hash::make($auth->id), $time);
-                        Cookie::queue('user_full_name', $auth->full_name, $time);
-                        Cookie::queue('user_pseudo', $auth->pseudo, $time);
-                        Cookie::queue('session_id', $auth->id, $time);
-                        Cookie::queue('user_email', $auth->email, $time);
-                        Cookie::queue('user_contact', $auth->contact, $time);
-                        return $this->responseModel(true, $auth);
-                    } else {
-                        $result = $this->responseModel(false, [], 'Confirmer votre adresse email');
-                    }
-                }else{
-                    $result = $this->responseModel(false, [], 'Identifiant ou mot de passe incorrect');
-                }
-            }
-            return $this->responseModel(false, [], $result ?? $validator->failed());
-        }catch (Exception $e){
-            return $this->responseModel(false, [], $e);
-        }
-    }
-
-    public function logoutAdmin(): array
-    {
-        try {
-            Cookie::forget('isConnected');
-            Cookie::forget('user_id');
-            Cookie::forget('user_full_name');
-            Cookie::forget('user_pseudo');
-            Cookie::forget('session_id');
-            Cookie::forget('user_email');
-            Cookie::forget('user_contact');
-            return $this->responseModel(true);
-        }catch (Exception $e){
-            return $this->responseModel(false, [], $e);
-        }
-    }
-
-    public function resendVerificationEmail(Request $request):array{
-        try {
-            $validator = Validator::make($request->all(), [
-                'email' => 'required|email'
-            ]);
-            if (!$validator->fails()){
-                $email = $request->input('email');
-                $resend = Admin::query()
-                    ->where('email', $email)
-                    ->first();
-                $emailToken = Str::random(32);
-                $password = Str::random(15);
-                $resend->password = Hash::make($password);
-                $resend->save();
-                DB::table('checks')->insert(['admin_id' => $resend->id, 'email_token' => $emailToken]);
-                $url = route('verified-email', ['id' => $resend->id, 'token' => $emailToken]);
-                Mail::to($email)->send(new Password($resend, $password, $url));
-                return $this->responseModel(true, $resend);
-            }
-            return $this->responseModel(false, $validator->failed());
-        }catch (Exception $e){
-            return $this->responseModel(false, [], $e);
-        }
     }
 
     public function verifiedAdminEmail($id,$token): bool
@@ -138,7 +59,7 @@ class Admin extends Model
         return false;
     }
 
-    public function getAllAdmin(): array
+    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function getAllAdmin(): array
     {
         try {
             return $this->responseModel(true, Admin::paginate(10));
@@ -147,7 +68,7 @@ class Admin extends Model
         }
     }
 
-    public function getAdminById($id): array
+    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function getAdminById($id): array
     {
         try {
             return $this->responseModel(true, Admin::find($id));
@@ -156,7 +77,7 @@ class Admin extends Model
         }
     }
 
-    public function createAdmin(Request $request): array
+    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function createAdmin(Request $request): array
     {
         try {
             $validator = Validator::make($request->all(), [
@@ -174,16 +95,14 @@ class Admin extends Model
                     ->where('email', $email)
                     ->orWhere('contact', $contact)
                     ->first();
-                if ($admin) {
-                    $result = $this->responseModel(false, [], "admin already exist");
-                } else{
+                if ($admin) return $this->responseModel(false, [], "admin already exist"); else{
                     $emailToken = Str::random(32);
                     $admin = new Admin();
                     $admin->full_name = $full_name;
                     $admin->email = $email;
                     $admin->pseudo = $pseudo;
                     $admin->contact = $contact;
-                    $admin->password = Hash::make($password);
+                    $admin->password = Hash::make($request->input(Str::random(15)));
                     $admin->save();
                     $url = route('verified-email', [
                         'id' => $admin->id,
@@ -194,16 +113,16 @@ class Admin extends Model
                         'email_token' => $emailToken
                     ]);
                     Mail::to($email)->send(new Password($admin, $password, $url));
-                    $result = $this->responseModel(true, $admin);
+                    return $this->responseModel(true, $admin);
                 }
             }
-            return $this->responseModel(false, [], $result ?? $validator->failed());
+            return $this->responseModel(false, [], $validator->failed());
         }catch (Exception $e){
             return $this->responseModel(false, [], $e);
         }
     }
 
-    public function updateAdminDetails(Request $request): array{
+    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function updateAdminDetails(Request $request): array{
         try {
             $validator = Validator::make($request->all(), [
                 'id' => 'required',
@@ -216,18 +135,17 @@ class Admin extends Model
                     $admin->full_name = $request->input('full_name');
                     $admin->contact = $request->input( 'contact');
                     $admin->save();
-                    $result = $this->responseModel(true, Admin::find($request->input('id')));
-                }else{
-                    $result = $this->responseModel(false, [], "admin does not exist");
+                    return $this->responseModel(true, Admin::find($request->input('id')));
                 }
+                return $this->responseModel(false, [], "admin does not exist");
             }
-            return $this->responseModel(false, [], $result ?? $validator->failed());
+            return $this->responseModel(false, [], $validator->failed());
         }catch (Exception $e){
             return $this->responseModel(false, [], $e);
         }
     }
 
-    public function updateAdminEmail(Request $request): array
+    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function updateEmail(Request $request): array
     {
         try {
             $validator = Validator::make($request->all(), [
@@ -256,7 +174,7 @@ class Admin extends Model
         }
     }
 
-    public function updateAdminPassword(Request $request): array
+    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function updateAdminPassword(Request $request): array
     {
         try {
             $validator = Validator::make($request->all(), [
@@ -279,18 +197,6 @@ class Admin extends Model
                 return $this->responseModel(true, Admin::find($request->input('id')));
             }
             return $this->responseModel(false, [], $validator->failed());
-        }catch (Exception $e){
-            return $this->responseModel(false, [], $e);
-        }
-    }
-
-    public function deleteAdmin($id): array {
-        try {
-            $admin = Admin::query()->find($id)->delete();
-            if ($admin){
-                return $this->responseModel(true, $admin);
-            }
-            return $this->responseModel(false, [], 'Action failed');
         }catch (Exception $e){
             return $this->responseModel(false, [], $e);
         }

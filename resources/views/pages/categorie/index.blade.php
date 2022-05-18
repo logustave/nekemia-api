@@ -22,12 +22,13 @@
                                 </div>
                                 <div class="d-flex align-items-center text-sm ">
                                     <small class="mx-1">{{date('d-m-Y',strtotime($q['created_at']))}}</small>
-                                    <a class="px-3 mb-0 btn btn-outline-primary" href="{{route("seeCategory",['id'=>$q['id']])}}"
+                                    <a class="px-3 mb-0 btn btn-outline-primary" href="{{route("editBLog",['id'=>$q['id']])}}"
                                        type="button">Voir</a>
                                 </div>
                             </li>
                         @endforeach
                     </ul>
+                    {{ $object ->links()   }}
                 </div>
             </div>
         </div>

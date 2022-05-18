@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\v1;
 
 use App\Http\Controllers\Controller;
-use App\Models\v1\Blog;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Models\v1\Blog;
+use App\Models\v1\Category;
 
 class BlogController extends Controller
 {
@@ -19,25 +20,22 @@ class BlogController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return Response
      */
     public function create(Request $request)
     {
         $data= (new Blog())->createBlog($request);
-        return back();
+        return redirect("blog/");
 
     }
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return Response
+
      */
-    public function store(Request $request)
+    public function store()
     {
-        //
+        $categorie = (new Category())->getAllCategory();
+        return view("pages.blog.ajouter",["object"=>$categorie['object']]);
     }
 
     /**
@@ -49,7 +47,8 @@ class BlogController extends Controller
     public function show($slug)
     {
         $blog=(new Blog())->getBlogBySlug($slug);
-        return view('pages.blog.information',['id'=>$slug,"object"=>$blog['object']]);
+        $categorie = (new Category())->getCategoryById($blog['object']['category_id']);
+        return view('pages.blog.information',['id'=>$slug,"object"=>$blog['object'],"categorie"=>$categorie['object']]);
 
     }
 
@@ -62,7 +61,9 @@ class BlogController extends Controller
     public function edit($slug)
     {
         $blog=(new Blog())->getBlogBySlug($slug);
-        return view('pages.blog.modifier',['slug'=>$slug,"object"=>$blog['object']]);
+        $allCategorie = (new Category())->getAllCategory();
+        $categorie = (new Category())->getCategoryById($blog['object']['category_id']);
+        return view('pages.blog.modifier',['slug'=>$slug,"object"=>$blog['object'],"categorie"=>$categorie['object'],'allCategorie'=>$allCategorie['object']]);
     }
 
     /**
@@ -74,8 +75,9 @@ class BlogController extends Controller
      */
     public function update(Request $request)
     {
-        (new Blog())->updateCategory($request);
-        return redirect("blog/information/$request->id");
+        (new Blog())->updateBlogById($request);
+//        return redirect("blog/information/$request->id");
+        return $request->file("cover_path");
     }
 
     /**
@@ -86,14 +88,14 @@ class BlogController extends Controller
      */
     public function destroy($id)
     {
-        $blog=(new Blog())->deleteCategoryById($id);
+        $blog=(new Blog())->deleteBlogById($id);
         return redirect("blog");
     }
 
     /**
      * @OA\Post (
      *      path="/v1/blog?page={page}",
-     *      operationId="getAllBlogAPI",
+     *      operationId="getAllFaqBlogAPI",
      *      tags={"BLOG"},
      *      summary="GET ALL BLOG",
      *      description="GET ALL BLOG",
@@ -153,7 +155,7 @@ class BlogController extends Controller
      *   ),
      *  )
      */
-    public function getAllBlogAPI(Request $request): JsonResponse
+    public function getAllBlog(Request $request): JsonResponse
     {
         $blog = (new Blog)->getAllBlog($request);
         return response()->json(

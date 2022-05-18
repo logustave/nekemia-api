@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use JetBrains\PhpStorm\ArrayShape;
 
 /**
  * @method static paginate(int $int)
@@ -19,7 +20,7 @@ class Question extends Model
 {
     use HasFactory;
 
-    private function responseModel($status = false, $object = [], $error = null): array
+    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] private function responseModel($status = false, $object = [], $error = null): array
     {
         return [
             'status' => $status,
@@ -28,7 +29,7 @@ class Question extends Model
         ];
     }
 
-    public function createQuestion(Request $request): array
+    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function createQuestion(Request $request): array
     {
         try {
 
@@ -54,7 +55,7 @@ class Question extends Model
         }
     }
 
-    public function getAllQuestion(): array
+    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function getAllQuestion(): array
     {
         try {
             return $this->responseModel(true, Question::paginate(10));
@@ -63,7 +64,7 @@ class Question extends Model
         }
     }
 
-    public function getQuestionById($id): array
+    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function getQuestionById($id): array
     {
         try {
             return $this->responseModel(true, Question::find($id));
