@@ -100,7 +100,7 @@ class Blog extends Model
                 $file = $request->file('cover_path');
                 $file_extension = $file->getClientOriginalExtension();
                 $file_name = Str::uuid().".".$file_extension;
-                Storage::disk('blog')->put($file_name, $file->getContent());
+                Storage::disk('blog-image')->put($file_name, $file->getContent());
                 $cover_path = asset("blog/$file_name", true);
                 $creator_id = $request->input('creator_id');
                 $category_id = $request->input('category_id');
@@ -143,7 +143,7 @@ class Blog extends Model
                     $file = $request->file('cover_path');
                     $file_extension = $file->getClientOriginalExtension();
                     $file_name = Str::uuid().'.'.$file_extension;
-                    Storage::disk('blog')->put($file_name, $file->getContent());
+                    Storage::disk('blog-image')->put($file_name, $file->getContent());
                     $cover_path = asset("blog/$file_name", true);
                     $blog->$cover_path = $cover_path;
                 }

@@ -44,10 +44,10 @@ return [
             'throw' => false,
         ],
 
-        'blog' => [
+        'blog-image' => [
             'driver' => 'local',
-            'root' => storage_path('app/public/blog'),
-            'url' => env('APP_URL').'/storage/blog',
+            'root' => storage_path('app/public/blog-image'),
+            'url' => env('APP_URL').'/storage/blog-image',
             'visibility' => 'public',
             'throw' => false,
         ],
@@ -79,7 +79,7 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
-        public_path('blog') => storage_path('app/public/blog'),
+        public_path('blog-image') => storage_path('app/public/blog-image'),
     ],
 
 ];
