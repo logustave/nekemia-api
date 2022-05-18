@@ -35,6 +35,7 @@ Route::middleware('client_credentials')->group(function () {
         Route::prefix('blog')->group(function (){
             Route::post('', [BlogController::class, 'getAllBlogAPI'])->name('getAllBlogAPI');
             Route::get('{slug}', [BlogController::class, 'getBlogBySlugAPI'])->name('getBlogBySlugAPI');
+            Route::get('last-five', [BlogController::class, 'getLastFiveBlogAPI'])->name('getLastFiveBlogAPI');
         });
 
         Route::prefix('comment')->group(function (){

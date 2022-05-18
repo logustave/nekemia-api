@@ -39,14 +39,11 @@ class Blog extends Model
             $search = $request->input('search') ? $request->input('search') : null;
             if ($search){
                 $blog =  Blog::query()
-                    ->join('categories', function($join){
-                        $join->on('blogs.category_id', '=', 'categories.id');
-                    })
-                    ->join('admins', function ($join){
-                        $join->on('blogs.admin_id', '=', 'admins.id');
-                    })
-                    ->where('title', 'LIKE', "%$search%")
-                    ->orWhere('content', 'LIKE', "%$search%")
+                    ->leftJoin('categories', 'blogs.category_id', '=', 'categories.id')
+                    ->leftJoin('admins', 'blogs.admin_id', '=', 'admins.id')
+                    ->select('blogs.*','admins.*', 'categories.*')
+                    ->where('blogs.title', 'LIKE', "%$search%")
+                    ->orWhere('blogs.content', 'LIKE', "%$search%")
                     ->paginate(10);
             }else{
                 $blog = Blog::paginate(10);
@@ -71,12 +68,10 @@ class Blog extends Model
     {
         try {
             $blog = Blog::query()
-                ->join('categories', function($join){
-                    $join->on('blogs.category_id', '=', 'categories.id');
-                })
-                ->join('admins', function ($join){
-                    $join->on('blogs.admin_id', '=', 'admins.id');
-                })->where('slug', $slug)->first();
+                ->leftJoin('categories', 'blogs.category_id', '=', 'categories.id')
+                ->leftJoin('admins', 'blogs.admin_id', '=', 'admins.id')
+                ->select('blogs.*','admins.*', 'categories.*')
+                ->where('blogs.slug', $slug)->first();
             if ($blog) {
                 return $this->responseModel(true, $blog);
             }
