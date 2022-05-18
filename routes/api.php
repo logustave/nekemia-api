@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\v1\AdminController;
 use App\Http\Controllers\v1\BlogController;
 use App\Http\Controllers\v1\CategoryController;
 use App\Http\Controllers\v1\CommentController;
@@ -21,14 +22,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/authenticate', [UserController::class,'authenticate'])->name('authenticate.api');
+Route::post('/register', [UserController::class,'register'])->name('login.api');
+Route::middleware('client_credentials')->group(function () {
 
-Route::middleware('auth:api')->group(function () {
-    Route::post('/register', [UserController::class,'register'])->name('login.api');
     Route::prefix('v1')->group(function(){
         Route::prefix('faq')->group(function(){
             Route::get('/',[FaqController::class, 'getAllFaqAPI']);
             Route::get('/{id}',[FaqController::class, 'getFaqByIdAPI']);
         });
+        Route::post('/admin',[AdminController::class, 'createAdminAPI']);
 
         Route::prefix('blog')->group(function (){
             Route::post('', [BlogController::class, 'getAllBlogAPI'])->name('getAllBlogAPI');

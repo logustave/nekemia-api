@@ -1,9 +1,6 @@
 <?php
 
 use App\Http\Controllers\v1\AdminController;
-use Djunehor\Sms\Concrete\RingCaptcha;
-use GuzzleHttp\Client;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\v1\CategoryController;
 use App\Http\Controllers\v1\FaqController;

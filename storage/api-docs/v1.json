@@ -19,6 +19,66 @@
         }
     ],
     "paths": {
+        "/v1/admin": {
+            "post": {
+                "tags": [
+                    "Administrateur"
+                ],
+                "summary": "CREATE ADMINISTRATOR",
+                "description": "CREATE ADMINISTRATOR",
+                "operationId": "createAdmin",
+                "requestBody": {
+                    "description": "Transmettre les informations",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "full_name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "contact": {
+                                        "type": "string"
+                                    },
+                                    "pseudo": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Opération éffectuée",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Non authentifié"
+                    },
+                    "403": {
+                        "description": "Interdit"
+                    },
+                    "400": {
+                        "description": "Mauvaise demande"
+                    },
+                    "404": {
+                        "description": "pas trouvé"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/v1/blog?page={page}": {
             "post": {
                 "tags": [

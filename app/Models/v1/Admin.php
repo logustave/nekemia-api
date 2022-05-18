@@ -164,7 +164,7 @@ class Admin extends Model
                 'email' => 'required|email',
                 'contact' => 'required'
             ]);
-            if ($validator){
+            if (!$validator->fails()){
                 $full_name = $request->input('full_name');
                 $email = $request->input('email');
                 $contact = $request->input('contact');
