@@ -57,13 +57,12 @@ class Admin extends Model
                 if (isset($auth->password) && Hash::check($password, $auth->password)){
                     if ($auth->email_verified_at){
                         $time = 60 * 24 * 7 * 30;
-                        Cookie::queue('isConnected', true, $time);
-                        Cookie::queue('user_id', Hash::make($auth->id), $time);
-                        Cookie::queue('user_full_name', $auth->full_name, $time);
-                        Cookie::queue('user_pseudo', $auth->pseudo, $time);
-                        Cookie::queue('session_id', $auth->id, $time);
-                        Cookie::queue('user_email', $auth->email, $time);
-                        Cookie::queue('user_contact', $auth->contact, $time);
+                        $request->session()->put('isConnected', true);
+                        $request->session()->push('user.id', $auth->id);
+                        $request->session()->push('user.full_name', $auth->full_name);
+                        $request->session()->push('user.pseudo', $auth->pseudo);
+                        $request->session()->push('user.email', $auth->email);
+                        $request->session()->push('user.contact', $auth->contact);
                         return $this->responseModel(true, $auth);
                     } else {
                         $result = $this->responseModel(false, [], 'Confirmer votre adresse email');
@@ -78,16 +77,10 @@ class Admin extends Model
         }
     }
 
-    public function logoutAdmin(): array
+    public function logoutAdmin(Request $request): array
     {
         try {
-            Cookie::forget('isConnected');
-            Cookie::forget('user_id');
-            Cookie::forget('user_full_name');
-            Cookie::forget('user_pseudo');
-            Cookie::forget('session_id');
-            Cookie::forget('user_email');
-            Cookie::forget('user_contact');
+            $request->session()->flush();
             return $this->responseModel(true);
         }catch (Exception $e){
             return $this->responseModel(false, [], $e);

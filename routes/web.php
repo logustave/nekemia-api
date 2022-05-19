@@ -35,13 +35,7 @@ Route::get("test",function (){
 
 Route::post('connect',[AdminController::class,"authAdmin"]) ->name("loginCompte");
 
-Route::get('/', function(){
-    echo "sssssss";
-});
-
 Route::group(['middleware' => 'isConnected'], static function () {
-
-
     Route::get('/',[AdminController::class,'signIn']);
 
     Route::controller(AdminController::class)->group(function (){
