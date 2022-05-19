@@ -60,14 +60,17 @@
 
                         <div class="card-body">
                             <form role="form text-left" action="{{route("loginCompte")}}" method="post">
+                                @csrf
                                 <div class="mb-3">
-                                    <input type="text" name="userName" class="form-control" placeholder="identifiant" aria-label="Name" aria-describedby="email-addon">
+                                    <label>Idenfifiant:</label>
+
+                                    <input type="text" name="username" class="form-control" placeholder="contact ou adresse mail" aria-label="Name" aria-describedby="email-addon">
                                 </div>
                                 <div class="mb-3">
-                                    <input type="password" name="password" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="email-addon">
+                                    <input type="password" name="password" class="form-control" placeholder="mot de passe" aria-label="Email" aria-describedby="email-addon">
                                 </div>
                                 <div class="text-center">
-                                    <button type="button" class="btn bg-gradient-dark w-100 my-4 mb-2">connexion</button>
+                                    <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">connexion</button>
                                 </div>
                             </form>
                         </div>

@@ -7,6 +7,8 @@ use App\Models\v1\Admin;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Cookie;
+
 
 class AdminController extends Controller
 {
@@ -86,9 +88,27 @@ class AdminController extends Controller
      * @param  \App\Models\Admin  $admin
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Admin $admin)
+    public function destroy($id)
     {
-        //
+        $admin=(new Admin())->deleteAdmin($id);
+        return redirect("comptes");
+    }
+    public function authAdmin(Request $request){
+        $admin= (new Admin())->authAdmin($request);
+//        return redirect("dashboard");
+        return $admin;
+    }
+
+    public function signIn(){
+        return view("login");
+    }
+    public function signOut(){
+//        (new Admin())->logoutAdmin();
+        Cookie::forget('isConnected');
+
+//        $cokie=Cookie::get('user_pseudo');
+
+
     }
 
 //    /**

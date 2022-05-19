@@ -37,7 +37,7 @@
                         </div>
 
                         <div class="text-center col-md-6">
-                            <button type="button" class="btn bg-gradient-danger w-100">Supprimer</button>
+                            <a type="button" class="btn bg-gradient-danger w-100" href="{{route("deleteCompte",['id'=>$object['id']])}}">Supprimer</a>
                         </div>
                     </div>
                 </div>

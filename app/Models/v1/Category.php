@@ -6,9 +6,7 @@ use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-use JetBrains\PhpStorm\ArrayShape;
 
 /**
  * @property mixed $label
@@ -20,7 +18,7 @@ class Category extends Model
 {
     use HasFactory;
 
-    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] private function responseModel($status = false, $object = [], $error = null): array
+    private function responseModel($status = false, $object = [], $error = null): array
     {
         return [
             'status' => $status,
@@ -29,7 +27,7 @@ class Category extends Model
         ];
     }
 
-    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function createCategory(Request $request): array
+    public function createCategory(Request $request): array
     {
         try {
             $validate = Validator::make($request->all(), [
@@ -48,7 +46,7 @@ class Category extends Model
         }
     }
 
-    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function updateCategory(Request $request): array
+    public function updateCategory(Request $request): array
     {
         try {
             $validate = Validator::make($request->all(), [
@@ -57,12 +55,15 @@ class Category extends Model
             ]);
             if (!$validate->fails()){
                 $category = Category::find($request->input('id'));
-                if (!$category) return $this->responseModel(false, [], "category does not exist"); else{
+                if (!$category) {
+                    $result = $this->responseModel(false, [], "category does not exist");
+                } else{
                     $category->label = $request->input('label');
                     $category->description = $request->input('description');
                     $category->save();
-                    return $this->responseModel(true, $category);
+                    $result =  $this->responseModel(true, $category);
                 }
+                return $this->responseModel(false, [], $result);
             }
             return $this->responseModel(false, [], $validate->failed());
         }catch (Exception $e){
@@ -70,7 +71,7 @@ class Category extends Model
         }
     }
 
-    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function getAllCategory(): array
+    public function getAllCategory(): array
     {
         try {
             return $this->responseModel(true, Category::paginate(5));
@@ -79,7 +80,16 @@ class Category extends Model
         }
     }
 
-    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function getCategoryById($id): array
+    public function getAllCategoryWithoutPagination(): array
+    {
+        try {
+            return $this->responseModel(true, Category::All());
+        }catch (Exception $e){
+            return $this->responseModel(false, [], $e);
+        }
+    }
+
+    public function getCategoryById($id): array
     {
         try {
             return $this->responseModel(true, Category::find($id));
@@ -88,7 +98,7 @@ class Category extends Model
         }
     }
 
-    #[ArrayShape(['status' => "string", 'object' => "null", 'error' => "null"])] public function deleteCategoryById($id): array
+    public function deleteCategoryById($id): array
     {
         try {
             return $this->responseModel(true, Category::find($id)->delete());
