@@ -130,7 +130,7 @@
                 </div>
             </div>
         </div>
-        <a class="btn bg-gradient-danger mt-3 w-100" href="deconnexion">Deconnexion</a>
+        <a class="btn bg-gradient-danger mt-3 w-100" href="{{route("deconnexion")}}">Deconnexion</a>
 
     </div>
     </div>

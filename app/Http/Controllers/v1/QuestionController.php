@@ -129,7 +129,7 @@ class QuestionController extends Controller
      *  )
      */
 
-    public function createQuestionAPI(Request $request): JsonResponse
+    public function createMessageAPI(Request $request): JsonResponse
     {
         $question = (new Question)->createQuestion($request);
         return response()->json(

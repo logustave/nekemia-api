@@ -2,7 +2,7 @@
 @extends('layouts.template')
 @section('body')
     <div class="row ">
-        <div class="col-xl-4 col-lg-5 col-md-7 mx-auto">
+        <div class="">
             <div class="card z-index-0">
                 <div class="card-header text-center pt-4">
                     <h5>Informations</h5>
@@ -14,24 +14,26 @@
                         nom
                     </div>
                     <div class="mb-3">
+                        <label>Categorie:</label>
+                        <a href="{{route("seeCategory",['id'=>$categorie['id']])}}">{{$categorie['label']}}</a>
+                    </div>
+                    <div class="mb-3">
                         <label>Titre:</label>
-                        lorem
+                        {{$object['title']}}
                     </div>
                     <div class="mb-3">
                         <label>Image:</label>
-                        <a href="#">Voir</a>
+                        <a href="{{$object['cover_path']}}">Voir</a>
                     </div>
                     <div class="mb-3">
                         <label>Description:</label>
+                        {!! $object['content'] !!}
                     </div>
 
                     <div class="row text-center">
-                        <div class="text-center col-md-6">
-                            <a  href="/blog/modifier/1" class="btn bg-gradient-success text-white">Modifier</a>
-                        </div>
-
-                        <div class="text-center col-md-6">
-                            <a href="#"  class="btn bg-gradient-danger">Supprimer</a>
+                        <div class="text-center">
+                            <a  href="{{route("pageEditBlog",['slug'=>$object['slug']])}}" class="btn bg-gradient-success text-white">Modifier</a>
+                            <a href="{{route("deleteBlog",['id'=>$object['id']])}}" class="btn bg-gradient-danger">Supprimer</a>
                         </div>
                     </div>
                 </div>

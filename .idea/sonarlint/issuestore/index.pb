@@ -45,8 +45,6 @@ Y
 .app/Http/Controllers/v1/QuestionController.php,5\b\5b9b3574f1a2827dc3e051c3886b7ff01dcfccdc
 G
 app/Models/v1/Admin.php,a\5\a5287d9b0e3b6fbfe50f673c28777eda6274959d
-F
-app/Models/v1/Blog.php,1\a\1a9e4ee72d6cbd94526f9139de85277715f533ed
 J
 app/Models/v1/Category.php,a\a\aa4629068c2a69047c5a751d51f7e34e51002abc
 I
