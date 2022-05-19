@@ -66,6 +66,7 @@ class Blog extends Model
 
     public function getBlogBySlug($slug): array
     {
+        return $this->responseModel(true, $slug);
         try {
             $blog = Blog::query()
                 ->leftJoin('categories', 'blogs.category_id', '=', 'categories.id')

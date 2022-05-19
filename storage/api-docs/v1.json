@@ -364,7 +364,7 @@
                 ]
             }
         },
-        "/v1/blog/last-five": {
+        "/v1/blog/last": {
             "get": {
                 "tags": [
                     "BLOG"
@@ -372,16 +372,6 @@
                 "summary": "GET LAST FIVE BLOG",
                 "description": "GET LAST FIVE BLOG",
                 "operationId": "getLastFiveBlogAPI",
-                "parameters": [
-                    {
-                        "name": "slug",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "Opération éffectuée",

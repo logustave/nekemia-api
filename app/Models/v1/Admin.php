@@ -56,7 +56,7 @@ class Admin extends Model
                     ->first();
                 if (isset($auth->password) && Hash::check($password, $auth->password)){
                     if ($auth->email_verified_at){
-                        $time = 60 * 24 * 7 * 30;
+                        $request->session()->regenerate();
                         $request->session()->put('isConnected', true);
                         $request->session()->push('user.id', $auth->id);
                         $request->session()->push('user.full_name', $auth->full_name);
@@ -151,46 +151,47 @@ class Admin extends Model
 
     public function createAdmin(Request $request): array
     {
-        try {
-            $validator = Validator::make($request->all(), [
-                'full_name' => 'required',
-                'email' => 'required|email',
-                'contact' => 'required'
-            ]);
-            if (!$validator->fails()){
-                $full_name = $request->input('full_name');
-                $email = $request->input('email');
-                $contact = $request->input('contact');
-                $pseudo = $request->input('pseudo') ? $request->input('pseudo') : null;
-                $password = Str::random(15);
-                $admin = DB::table('admins')
-                    ->where('email', $email)
-                    ->orWhere('contact', $contact)
-                    ->first();
-                if ($admin) {
-                    $result = $this->responseModel(false, [], "admin already exist");
-                } else{
-                    $emailToken = Str::random(32);
-                    $admin = new Admin();
-                    $admin->full_name = $full_name;
-                    $admin->email = $email;
-                    $admin->pseudo = $pseudo;
-                    $admin->contact = $contact;
-                    $admin->password = Hash::make($password);
-                    $admin->save();
-                    $url = route('verified-email', [
-                        'id' => $admin->id,
-                        'token' => $emailToken
-                    ]);
-                    DB::table('checks')->insert([
-                        'admin_id' => $admin->id,
-                        'email_token' => $emailToken
-                    ]);
-                    Mail::to($email)->send(new Password($admin, $password, $url));
-                    $result = $this->responseModel(true, $admin);
-                }
+        $validator = Validator::make($request->all(), [
+            'full_name' => 'required',
+            'email' => 'required|email',
+            'contact' => 'required'
+        ]);
+        if (!$validator->fails()){
+            $full_name = $request->input('full_name');
+            $email = $request->input('email');
+            $contact = $request->input('contact');
+            $pseudo = $request->input('pseudo') ? $request->input('pseudo') : null;
+            $password = Str::random(15);
+            $admin = DB::table('admins')
+                ->where('email', $email)
+                ->orWhere('contact', $contact)
+                ->first();
+            if ($admin) {
+                $result = $this->responseModel(false, [], "admin already exist");
+            } else{
+                $emailToken = Str::random(32);
+                $admin = new Admin();
+                $admin->full_name = $full_name;
+                $admin->email = $email;
+                $admin->pseudo = $pseudo;
+                $admin->contact = $contact;
+                $admin->password = Hash::make($password);
+                $admin->save();
+                $url = route('verified-email', [
+                    'id' => $admin->id,
+                    'token' => $emailToken
+                ]);
+                DB::table('checks')->insert([
+                    'admin_id' => $admin->id,
+                    'email_token' => $emailToken
+                ]);
+                Mail::to($email)->send(new Password($admin, $password, $url));
+                $result = $this->responseModel(true, $admin);
             }
-            return $this->responseModel(false, [], $result ?? $validator->failed());
+        }
+        return $this->responseModel(false, [], $result ?? $validator->failed());
+        try {
+            
         }catch (Exception $e){
             return $this->responseModel(false, [], $e);
         }

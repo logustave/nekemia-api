@@ -155,7 +155,7 @@ class BlogController extends Controller
      *   ),
      *  )
      */
-    public function getAllBlog(Request $request): JsonResponse
+    public function getAllBlogAPI(Request $request): JsonResponse
     {
         $blog = (new Blog)->getAllBlog($request);
         return response()->json(
@@ -243,20 +243,12 @@ class BlogController extends Controller
 
     /**
      * @OA\Get(
-     *      path="/v1/blog/last-five",
+     *      path="/v1/blog/last",
      *      operationId="getLastFiveBlogAPI",
      *      tags={"BLOG"},
      *      summary="GET LAST FIVE BLOG",
      *      description="GET LAST FIVE BLOG",
      *      security={{"bearerAuth":{}}},
-     *      @OA\Parameter(
-     *          name="slug",
-     *          in="path",
-     *          required=true,
-     *          @OA\Schema(
-     *              type="string"
-     *          )
-     *      ),
      *     @OA\Response(
      *          response=200,
      *          description="Opération éffectuée",

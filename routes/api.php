@@ -21,8 +21,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/authenticate', [Controller::class,'authenticate'])->name('authenticate.api');
-Route::post('/register', [Controller::class,'register'])->name('login.api');
+Route::post('/authenticate', [Controller::class,'authenticate'])->name('login.api');
+Route::post('/register', [Controller::class,'register'])->name('register.api');
 Route::middleware('auth:api')->group(function () {
 
     Route::prefix('v1')->group(function(){
@@ -33,9 +33,9 @@ Route::middleware('auth:api')->group(function () {
         Route::post('/admin',[AdminController::class, 'createAdminAPI']);
 
         Route::prefix('blog')->group(function (){
-            Route::post('', [BlogController::class, 'getAllBlogAPI'])->name('getAllBlogAPI');
+            Route::post('/', [BlogController::class, 'getAllBlogAPI'])->name('getAllBlogAPI');
             Route::get('{slug}', [BlogController::class, 'getBlogBySlugAPI'])->name('getBlogBySlugAPI');
-            Route::get('last-five', [BlogController::class, 'getLastFiveBlogAPI'])->name('getLastFiveBlogAPI');
+            Route::get('/five', [BlogController::class, 'getLastFiveBlogAPI'])->name('getLastFiveBlogAPI');
         });
 
         Route::prefix('comment')->group(function (){
