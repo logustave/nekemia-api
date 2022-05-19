@@ -1,9 +1,7 @@
 <?php
 
 use App\Http\Controllers\v1\AdminController;
-use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Cookie;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\v1\CategoryController;
 use App\Http\Controllers\v1\FaqController;
@@ -36,6 +34,10 @@ Route::get("test",function (){
 });
 
 Route::post('connect',[AdminController::class,"authAdmin"]) ->name("loginCompte");
+
+Route::get('/', function(){
+    echo "sssssss";
+});
 
 Route::group(['middleware' => 'isConnected'], static function () {
 
