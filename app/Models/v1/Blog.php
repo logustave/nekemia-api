@@ -66,7 +66,7 @@ class Blog extends Model
 
     public function getBlogBySlug($slug): array
     {
-        return $this->responseModel(true, $slug);
+
         try {
             $blog = Blog::query()
                 ->leftJoin('categories', 'blogs.category_id', '=', 'categories.id')
@@ -97,7 +97,7 @@ class Blog extends Model
                 $file_extension = $file->getClientOriginalExtension();
                 $file_name = Str::uuid().".".$file_extension;
                 Storage::disk('blog-image')->put($file_name, $file->getContent());
-                $cover_path = asset("blog/$file_name", true);
+                $cover_path = asset("blog-image/$file_name", true);
                 $creator_id = $request->input('creator_id');
                 $category_id = $request->input('category_id');
                 $title = $request->input('title');
@@ -140,7 +140,7 @@ class Blog extends Model
                     $file_extension = $file->getClientOriginalExtension();
                     $file_name = Str::uuid().'.'.$file_extension;
                     Storage::disk('blog-image')->put($file_name, $file->getContent());
-                    $cover_path = asset("blog/$file_name", true);
+                    $cover_path = asset("blog-image/$file_name", true);
                     $blog->$cover_path = $cover_path;
                 }
                 $blog->category_id = $category_id;

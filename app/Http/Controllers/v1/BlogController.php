@@ -100,6 +100,14 @@ class BlogController extends Controller
      *      summary="GET ALL BLOG",
      *      description="GET ALL BLOG",
      *      security={{"bearerAuth":{}}},
+     *      @OA\Parameter(
+     *          name="page",
+     *          in="query",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
      *      @OA\RequestBody(
      *          required=false,
      *          description="Transmettre les informations",
@@ -243,7 +251,7 @@ class BlogController extends Controller
 
     /**
      * @OA\Get(
-     *      path="/v1/blog/last",
+     *      path="/v1/blog/last/five",
      *      operationId="getLastFiveBlogAPI",
      *      tags={"BLOG"},
      *      summary="GET LAST FIVE BLOG",

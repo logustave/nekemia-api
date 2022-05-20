@@ -4,6 +4,7 @@ namespace App\Http\Controllers\v1;
 
 use App\Http\Controllers\Controller;
 use App\Models\v1\Comment;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -82,5 +83,25 @@ class CommentController extends Controller
     public function destroy(Comment $comment)
     {
         //
+    }
+
+    public function createBlogCommentAPI(Request $request): JsonResponse{
+        $comment = (new Comment)->createBlogComment($request);
+        return response()->json(
+            $comment,
+            200,
+            ['Content-Type' => 'application/json;charset=UTF-8', 'Charset' => 'utf-8'],
+            $this->format
+        );
+    }
+
+    public function getAllBlogCommentAPI($id): JsonResponse{
+        $comment = (new Comment)->getAllBlogComment($id);
+        return response()->json(
+            $comment,
+            200,
+            ['Content-Type' => 'application/json;charset=UTF-8', 'Charset' => 'utf-8'],
+            $this->format
+        );
     }
 }

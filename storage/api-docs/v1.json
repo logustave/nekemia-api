@@ -156,6 +156,16 @@
                 "summary": "GET ALL BLOG",
                 "description": "GET ALL BLOG",
                 "operationId": "getAllFaqBlogAPI",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "description": "Transmettre les informations",
                     "required": false,
@@ -364,7 +374,7 @@
                 ]
             }
         },
-        "/v1/blog/last": {
+        "/v1/blog/last/five": {
             "get": {
                 "tags": [
                     "BLOG"
