@@ -71,7 +71,7 @@ class Blog extends Model
             $blog = Blog::query()
                 ->leftJoin('categories', 'blogs.category_id', '=', 'categories.id')
                 ->leftJoin('admins', 'blogs.admin_id', '=', 'admins.id')
-                ->select('blogs.*','admins.*', 'categories.*')
+                ->select('blogs.*', 'blogs.created_at as blog_created','admins.*', 'categories.*')
                 ->where('blogs.slug', $slug)->first();
             if ($blog) {
                 return $this->responseModel(true, $blog);
