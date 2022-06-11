@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
-
+use Illuminate\Support\Facades\Session;
 
 class isConnected
 {
@@ -18,7 +18,7 @@ class isConnected
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Cookie::get('isConnected') !== true) {
+        if (Session::get('isConnected') !== true) {
             return redirect('connexion');
         }
         return $next($request);

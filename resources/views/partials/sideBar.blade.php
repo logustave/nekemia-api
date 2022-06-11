@@ -118,15 +118,18 @@
     </div>
 
 
-    <div class="sidenav-footer my-3">
+    <div class="sidenav-footer ">
+    <div class="sidenav-footer ">
         <div class="card card-background shadow-none card-background-mask-secondary" id="sidenavCard">
             <div class="full-background" style="background: #0b5d6f"></div>
             <div class="card-body text-start p-3 w-100">
 
                 <div class="docs-info">
-                    <h6 class="text-white up mb-0">Identifiant :<span class="text-success">xxxx</span></h6>
-                    <h6 class="text-white up mb-0">Contact :<span class="text-success">000</span></h6>
-                    <a href="/profile"  class="btn btn-white btn-sm w-100 mb-0">Informations</a>
+                    <h6 class="text-white up mb-0">Identifiant :<span class="text-success">{{Session::get('user.pseudo')[0]}}</span></h6>
+                    <h6 class="text-white up mb-0">Contact :<span class="text-success">{{ Session::get('user.contact')[0]}}</span></h6>
+                    <a href="/profile"  class="btn btn-white btn-sm w-100 mb-3 mt-2">Informations</a>
+
+                    <a href="/profile/modifier/"  class="btn btn-warning btn-sm w-100 mb-0">Modifier mot de passe</a>
                 </div>
             </div>
         </div>

@@ -9,9 +9,9 @@
                             <div class="numbers">
                                 <p class="text-sm mb-0 text-capitalize font-weight-bold">messages Blog</p>
                                 <h5 class="font-weight-bolder mb-0">
-                                    10
-                                    <span class="text-success text-sm font-weight-bolder">6 lu(s)</span>
-                                    <span class="text-danger text-sm font-weight-bolder">4 non-lu(s)</span>
+                                    {{$nbr_blog}}
+{{--                                    <span class="text-success text-sm font-weight-bolder">6 lu(s)</span>--}}
+{{--                                    <span class="text-danger text-sm font-weight-bolder">4 non-lu(s)</span>--}}
                                 </h5>
                             </div>
                         </div>
@@ -32,7 +32,8 @@
                             <div class="numbers">
                                 <p class="text-sm mb-0 text-capitalize font-weight-bold">Categories crées</p>
                                 <h5 class="font-weight-bolder mb-0">
-                                    2
+                                    {{$nbr_category}}
+
                                 </h5>
                             </div>
                         </div>
@@ -52,7 +53,7 @@
                         <div class="col-8">
                             <div class="numbers">
                                 <p class="text-sm mb-0 text-capitalize font-weight-bold">Questions faq</p>
-                                <h5 class="font-weight-bolder mb-0">5</h5>
+                                <h5 class="font-weight-bolder mb-0">{{$nbr_faq}}</h5>
                             </div>
                         </div>
                         <div class="col-4 text-end">
@@ -71,7 +72,7 @@
                         <div class="col-8">
                             <div class="numbers">
                                 <p class="text-sm mb-0 text-capitalize font-weight-bold">Comptes admin</p>
-                                <h5 class="font-weight-bolder mb-0">3</h5>
+                                <h5 class="font-weight-bolder mb-0">{{$nbr_faq}}</h5>
                             </div>
                         </div>
                         <div class="col-4 text-end">
@@ -99,35 +100,23 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-body pt-4 p-3">
-                    <ul class="list-group">
-                        <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
-                            <div class="d-flex flex-column">
-                                <h6 class="mb-3 text-sm">Oliver Liam</h6>
-                                <span class="mb-2 text-xs">Contact: <span class="text-dark font-weight-bold ms-sm-2">Viking Burrito</span></span>
-
-                                <span class="mb-2 text-xs">Messages:
-                                    <span class="text-dark font-weight-bold ms-sm-2">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean non ultrices nisi,eu
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit...
-                                    </span>
-                                </span>
-                                <span class="mb-2 text-xs">Email:
-                                    <span class="text-dark ms-sm-2 font-weight-bold">oliver@burrito.com</span>
-                                </span>
-                                <span class="text-xs">VAT Number:
-                                    <span class="text-dark ms-sm-2 font-weight-bold">FRB1235476</span>
-                                </span>
-                            </div>
-                            <div class="ms-auto text-end">
-                                <a class="btn btn-link text-primary px-3 mb-0" href="blog/voir"><i
-                                            class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Modifier</a>
-                            </div>
-                        </li>
-
-
+                <div class="card-body p-3 pb-0 cardBodyElement">
+                    <ul class="list-group listElement">
+                        @foreach($last_blog as $q)
+                            <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg element">
+                                <div class="d-flex flex-column">
+                                    <h6 class="mb-1 text-dark font-weight-bold "><img src="{{$q['cover_path']}}" width="70" height="70"> {{$q['title']}}</h6>
+                                </div>
+                                <div class="d-flex align-items-center text-sm ">
+                                    <small class="mx-1">Auteur le {{date('d-m-Y',strtotime($q['created_at']))}}</small>
+                                    <a class="px-3 mb-0 btn btn-outline-primary" href="{{route("seeBlog",['slug'=>$q['slug']])}}"
+                                       type="button">Voir</a>
+                                </div>
+                            </li>
+                        @endforeach
                     </ul>
                 </div>
+
             </div>
         </div>
 

@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\v1\CategoryController;
 use App\Http\Controllers\v1\FaqController;
 use App\Http\Controllers\v1\BlogController;
+use App\Http\Controllers\AcceuilController;
+use Illuminate\Support\Facades\Session;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,20 +31,18 @@ Route::get("connexion",function (){
 
 Route::get("deconnexion",[AdminController::class, 'signOut'])->name("deconnexion");
 
-Route::get("test",function (){
-    return dd(Cookie::get());
-});
-
 Route::post('connect',[AdminController::class,"authAdmin"]) ->name("loginCompte");
 
 Route::group(['middleware' => 'isConnected'], static function () {
-    Route::get('/',[AdminController::class,'signIn']);
+
+    Route::get('/',[AcceuilController::class,"index"]) ->name("acceuil");
 
     Route::controller(AdminController::class)->group(function (){
-
-        Route::get('/dashboard',function (){
-            return View('index');
-        })->name('acceuil');
+        Route::get('/dashboard',[AcceuilController::class,"index"]) ->name("acceuil");
+//
+//        Route::get('/dashboard',function (){
+//            return View('index');
+//        })->name('acceuil');
 
         Route::prefix('/comptes')->group(function (){
 
@@ -55,8 +55,15 @@ Route::group(['middleware' => 'isConnected'], static function () {
 
 
             Route::post('/update', 'update')->name("editAdmin");
+
+//
+//            Route::post('/update/password', function(){
+//                return "no";
+//            })->name("editPassword");
+
             Route::post('/add','create') ->name("createCompte");
-            Route::put('/update/password', '');
+
+            Route::post('/update/password', 'updatePassword')->name("editPassword");
             Route::put('/update/email', '');
             Route::get('/delete/{id}','destroy') ->name("deleteCompte");
 
@@ -119,9 +126,12 @@ Route::group(['middleware' => 'isConnected'], static function () {
 
     Route::prefix('/profile')->group(function (){
         Route::get('/',function (){
+//            session()->regenerate();
             return view('pages.profile.index');
         });
-        Route::get('/modifier/{id}', function () {
+
+
+        Route::get('/modifier', function () {
             return view('pages.profile.modifier');
         });
     });

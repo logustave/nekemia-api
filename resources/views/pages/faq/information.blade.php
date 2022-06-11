@@ -19,7 +19,7 @@
                     </div>
                     <div class="mb-3 text-md">
                         <label>date de publication:</label>
-                        {{$object['answer']}}
+                        {{date('d-m-Y',strtotime($object['created_at']))}}
                     </div>
 
                     <div class="row text-center">
