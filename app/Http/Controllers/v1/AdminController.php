@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Cookie;
 
 class AdminController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -81,6 +82,14 @@ class AdminController extends Controller
         (new Admin())->updateAdminDetails($request);
         return redirect("comptes/information/$request->id");
     }
+    public function updatePassword(Request $request)
+    {
+        $update =(new Admin())->updateAdminPassword($request);
+//        return redirect("deconnexion");
+            return dd($update);
+    }
+
+
 
     /**
      * Remove the specified resource from storage.
@@ -95,21 +104,21 @@ class AdminController extends Controller
     }
     public function authAdmin(Request $request){
         $admin= (new Admin())->authAdmin($request);
-//        return redirect("dashboard");
-        return $admin;
+        return redirect("dashboard");
+//        return $admin;
     }
 
     public function signIn(){
         return view("login");
     }
-    public function signOut(){
-//        (new Admin())->logoutAdmin();
-        Cookie::forget('isConnected');
-
+    public function signOut(Request $request){
+        (new Admin())->logoutAdmin($request);
+        $request->session()->put('isConnected',false);
+        return view("login");
 //        $cokie=Cookie::get('user_pseudo');
-
-
     }
+
+
 
     /**
      * @OA\Post(
