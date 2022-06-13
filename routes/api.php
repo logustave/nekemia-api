@@ -22,9 +22,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/authenticate', [Controller::class,'authenticate'])->name('login.api');
-Route::post('/register', [Controller::class,'register'])->name('register.api');
 Route::middleware('auth:api')->group(function () {
-
+    Route::post('/register', [Controller::class,'register'])->name('register.api');
     Route::prefix('v1')->group(function(){
         Route::prefix('faq')->group(function(){
             Route::get('/',[FaqController::class, 'getAllFaqAPI']);
