@@ -7,9 +7,9 @@
     "require": {
         "php": "^7.3|^8.0",
         "ext-json": "*",
-        "barryvdh/laravel-cors": "^3.0",
         "darkaonline/l5-swagger": "^8.3",
         "fruitcake/laravel-cors": "^2.0",
+        "fruitcake/php-cors": "^1.2",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.75",
         "laravel/passport": "^10.4",
