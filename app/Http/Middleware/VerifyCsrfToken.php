@@ -12,6 +12,9 @@ class VerifyCsrfToken extends Middleware
      * @var array<int, string>
      */
     protected $except = [
-        //
+        'localhost',
+        'localhost:3000',
+        '*.nekemia.com',
+        '*.nekemia-api.test'
     ];
 }

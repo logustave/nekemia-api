@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => ['localhost', 'localhost:3000', '*.nekemia.com', '*.nekemia-api.test'],
 
     'allowed_origins_patterns' => [],
 
