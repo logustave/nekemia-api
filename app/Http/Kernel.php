@@ -38,13 +38,14 @@ class Kernel extends HttpKernel
      * @var array<int, class-string|string>
      */
     protected $middleware = [
-        // \App\Http\Middleware\TrustHosts::class,
+        \App\Http\Middleware\TrustHosts::class,
         TrustProxies::class,
         HandleCors::class,
         PreventRequestsDuringMaintenance::class,
         ValidatePostSize::class,
         TrimStrings::class,
         ConvertEmptyStringsToNull::class,
+        Cors::class
     ];
 
     /**
@@ -89,6 +90,5 @@ class Kernel extends HttpKernel
         'verified' => EnsureEmailIsVerified::class,
         'optimizeImages' => OptimizeImages::class,
         'isConnected'=> isConnected::class,
-        'cors' => Cors::class
     ];
 }
