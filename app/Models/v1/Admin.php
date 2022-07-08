@@ -191,7 +191,7 @@ class Admin extends Model
         }
         return $this->responseModel(false, [], $result ?? $validator->failed());
         try {
-            
+
         }catch (Exception $e){
             return $this->responseModel(false, [], $e);
         }
@@ -268,7 +268,7 @@ class Admin extends Model
             if (!$validator->failed()){
                 DB::table('admins')->where('id', $request->input('id'))->update([
                     'password'=>Hash::make($request->input('repeat')),
-                    'password_verified_at' => date("Y-m-d H:i:s")
+                    'password_change_at' => date("Y-m-d H:i:s")
                 ]);
                 return $this->responseModel(true, Admin::find($request->input('id')));
             }

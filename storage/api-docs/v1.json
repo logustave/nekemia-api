@@ -14,7 +14,7 @@
     },
     "servers": [
         {
-            "url": "http://nekemia-api.test/api",
+            "url": "https://core.nekemia.com/api",
             "description": "Nekiema Service Server"
         }
     ],
@@ -756,9 +756,9 @@
                 "scheme": "http",
                 "flows": {
                     "password": {
-                        "authorizationUrl": "http://nekemia-api.test/oauth/authorize",
-                        "tokenUrl": "http://nekemia-api.test/oauth/token",
-                        "refreshUrl": "http://nekemia-api.test/token/refresh",
+                        "authorizationUrl": "https://core.nekemia.com/oauth/authorize",
+                        "tokenUrl": "https://core.nekemia.com/oauth/token",
+                        "refreshUrl": "https://core.nekemia.com/token/refresh",
                         "scopes": []
                     }
                 }

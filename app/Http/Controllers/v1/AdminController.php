@@ -128,22 +128,22 @@ class AdminController extends Controller
      *      summary="CREATE ADMINISTRATOR",
      *      description="CREATE ADMINISTRATOR",
      *      security={{"bearerAuth":{}}},
-     * @OA\RequestBody(
-     *    required=true,
-     *    description="Transmettre les informations",
+     *      @OA\RequestBody(
+     *          required=true,
+     *          description="Transmettre les informations",
      *          @OA\JsonContent(
      *              @OA\Property(property="full_name", type="string"),
      *              @OA\Property(property="email", type="string"),
      *              @OA\Property(property="contact", type="string"),
      *              @OA\Property(property="pseudo", type="string")
      *          ),
-     * ),
-     *     @OA\Response(
+     *      ),
+     *      @OA\Response(
      *          response=200,
      *          description="Opération éffectuée",
      *          @OA\MediaType(
      *           mediaType="application/json",
-     *      )
+     *          )
      *      ),
      *      @OA\Response(
      *          response=401,
@@ -153,14 +153,14 @@ class AdminController extends Controller
      *          response=403,
      *          description="Interdit"
      *      ),
-     * @OA\Response(
-     *      response=400,
-     *      description="Mauvaise demande"
-     *   ),
-     * @OA\Response(
-     *      response=404,
-     *      description="pas trouvé"
-     *   ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Mauvaise demande"
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="pas trouvé"
+     *      ),
      *  )
      */
 
