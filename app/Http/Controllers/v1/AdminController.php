@@ -6,9 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Models\v1\Admin;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
+use Illuminate\Support\Facades\Cookie;
+
 
 class AdminController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +20,8 @@ class AdminController extends Controller
      */
     public function index()
     {
-        //
+        $admin = (new Admin())->getAllAdmin();
+        return view('pages.comptes.index',['admin'=>$admin['object']]);
     }
 
     /**
@@ -24,9 +29,10 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request )
     {
-        //
+        $data= (new Admin())->createAdmin($request);
+        return redirect("comptes");
     }
 
     /**
@@ -37,7 +43,7 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return view("pages.comptes.ajouter");
     }
 
     /**
@@ -46,9 +52,10 @@ class AdminController extends Controller
      * @param  \App\Models\Admin  $admin
      * @return \Illuminate\Http\Response
      */
-    public function show(Admin $admin)
+    public function show($id)
     {
-        //
+        $admin =  (new Admin())->getAdminById($id);
+        return view('pages.comptes.information',['object'=>$admin['object']]);
     }
 
     /**
@@ -57,9 +64,10 @@ class AdminController extends Controller
      * @param  \App\Models\Admin  $admin
      * @return \Illuminate\Http\Response
      */
-    public function edit(Admin $admin)
+    public function edit($id)
     {
-        //
+        $admin=(new Admin())->getAdminById($id);
+        return view('pages.comptes.modifier',['id'=>$id,"object"=>$admin['object']]);
     }
 
     /**
@@ -69,10 +77,19 @@ class AdminController extends Controller
      * @param  \App\Models\Admin  $admin
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Admin $admin)
+    public function update(Request $request)
     {
-        //
+        (new Admin())->updateAdminDetails($request);
+        return redirect("comptes/information/$request->id");
     }
+    public function updatePassword(Request $request)
+    {
+        $update =(new Admin())->updateAdminPassword($request);
+//        return redirect("deconnexion");
+            return dd($update);
+    }
+
+
 
     /**
      * Remove the specified resource from storage.
@@ -80,10 +97,28 @@ class AdminController extends Controller
      * @param  \App\Models\Admin  $admin
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Admin $admin)
+    public function destroy($id)
     {
-        //
+        $admin=(new Admin())->deleteAdmin($id);
+        return redirect("comptes");
     }
+    public function authAdmin(Request $request){
+        $admin= (new Admin())->authAdmin($request);
+        return redirect("dashboard");
+//        return $admin;
+    }
+
+    public function signIn(){
+        return view("login");
+    }
+    public function signOut(Request $request){
+        (new Admin())->logoutAdmin($request);
+        $request->session()->put('isConnected',false);
+        return view("login");
+//        $cokie=Cookie::get('user_pseudo');
+    }
+
+
 
     /**
      * @OA\Post(

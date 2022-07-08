@@ -11,25 +11,27 @@
                 <div class="card-body">
                     <div class="mb-3">
                         <label>Nom & prenoms:</label>
-                        full_name
+                        {{ Session::get('user.full_name')[0]}}
                     </div>
                     <div class="mb-3">
                         <label>pseudo:</label>
-                        Nom
+                        {{ Session::get('user.pseudo')[0]}}
                     </div>
                     <div class="mb-3">
                         <label>email:</label>
-                        Nom
+                        {{ Session::get('user.email')[0]}}
+
                     </div>
                     <div class="mb-3 text-md">
-                        <label>date de creation:</label>
-                        12/01/2002
+                        <label>Contact:</label>
+                        {{ Session::get('user.contact')[0]}}
+
 
                     </div>
 
                     <div class="row text-center">
                         <div class="text-center col-md-6">
-                            <a type="button" href="/profile/modifier/1" class="btn bg-success text-white">Modifier</a>
+                            <a type="button" href="{{route("pageEditCompte",['id'=>Session::get('user.id')[0]])}}" class="btn bg-success text-white">Modifier</a>
                         </div>
 
                         <div class="text-center col-md-5">

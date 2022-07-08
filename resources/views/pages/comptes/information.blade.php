@@ -10,26 +10,34 @@
 
                 <div class="card-body">
                     <div class="mb-3">
-                        <label>Question:</label>
-                        Nom
+                        <label>nom & prenom:</label>
+                        {{$object['full_name']}}
                     </div>
                     <div class="mb-3">
-                        <label>Reponse:</label>
-                        Nom
+                        <label>pseudo:</label>
+                        {{$object['pseudo']}}
+                    </div>
+                    <div class="mb-3">
+                        <label>contact:</label>
+                        {{$object['contact']}}
+                    </div>
+                    <div class="mb-3">
+                        <label>email:</label>
+                        {{$object['email']}}
                     </div>
                     <div class="mb-3 text-md">
-                        <label>date de publication:</label>
-                        12/01/2002
+                        <label>date de creation:</label>
+                        {{date('d-m-Y',strtotime($object['created_at']))}}
 
                     </div>
 
                     <div class="row text-center">
                         <div class="text-center col-md-6">
-                            <a type="button" href="/faq/modifier/1" class="btn bg-success text-white">Modifier</a>
+                            <a type="button" href="{{route("pageEditCompte",['id'=>$object['id']])}}" class="btn bg-success text-white">Modifier</a>
                         </div>
 
-                        <div class="text-center col-md-5">
-                            <button type="button" class="btn bg-gradient-danger w-100">Supprimer</button>
+                        <div class="text-center col-md-6">
+                            <a type="button" class="btn bg-gradient-danger w-100" href="{{route("deleteCompte",['id'=>$object['id']])}}">Supprimer</a>
                         </div>
                     </div>
                 </div>

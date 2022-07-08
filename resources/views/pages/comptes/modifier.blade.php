@@ -8,20 +8,23 @@
                 </div>
 
                 <div class="card-body">
-                    <form role="form text-left">
+                    <form role="form text-left" method="post" action="{{route("editAdmin")}}">
+                        {{csrf_field()}}
                         <div class="mb-3">
-                            <input type="text" name="question" value="faq" class="form-control" placeholder="question" aria-label="Name" aria-describedby="email-addon">
+                            <label>Nom & prenom:</label>
+                            <input type="text" name="full_name" value="{{$object['full_name']}}" class="form-control" placeholder="label" aria-label="Name" aria-describedby="email-addon">
                         </div>
                         <div class="mb-3">
-                            <textarea name="answer"  class="form-control" placeholder="reponse" style="resize: none" rows="5">reponse</textarea>
+                            <label>contact:</label>
+                            <input type="number" name="contact" value="{{$object['contact']}}" class="form-control" placeholder="label" aria-label="Name" aria-describedby="email-addon">
                         </div>
+                        <input type="hidden" name="id" value="{{$object['id']}}" class="form-control" placeholder="label" aria-label="Name" aria-describedby="email-addon">
 
 
                         <div class="row text-center">
                             <div class="text-center col-md-6">
-                                <a type="button" href="/faq/modifier/1" class="btn bg-success text-white">Modifier</a>
+                                <button type="submit"  class="btn bg-success text-white">Modifier</button>
                             </div>
-
                             <div class="text-center col-md-5">
                                 <a type="button" class="btn bg-gradient-danger w-100" href="{{url()->previous()}}">Retour</a>
                             </div>
@@ -32,5 +35,17 @@
             </div>
         </div>
     </div>
+<style>
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
 
+    /* Firefox */
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+</style>
 @endsection

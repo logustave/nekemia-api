@@ -28,6 +28,7 @@
                             </li>
                         @endforeach
                     </ul>
+                    {{ $object ->links()   }}
                 </div>
             </div>
         </div>
