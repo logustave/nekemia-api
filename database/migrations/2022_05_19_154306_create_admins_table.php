@@ -17,8 +17,8 @@ class CreateAdminsTable extends Migration
             $table->bigIncrements('id');
             $table->foreignId('role_id')->nullable()->references('id')->on('roles')->nullOnDelete()->cascadeOnUpdate();
             $table->string('full_name',191);
-            $table->string('pseudo',255)->nullable()->unique();
-            $table->string('email',255)->unique();
+            $table->string('pseudo',191)->nullable()->unique();
+            $table->string('email',191)->unique();
             $table->string('contact','15')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->dateTime('password_change_at')->default(null)->nullable();
