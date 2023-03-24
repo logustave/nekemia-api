@@ -19,7 +19,7 @@ class CreateBlogsTable extends Migration
             $table->foreignId('category_id')->references('id')->on('categories')->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('title', 100)->unique();
             $table->string('slug', 191);
-            $table->longText('cover_path')->unique();
+            $table->longText('cover_path');
             $table->longText('content');
             $table->timestamps();
             $table->softDeletes();
